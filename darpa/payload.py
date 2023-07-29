@@ -15,15 +15,18 @@ class Payload(m3l.ExplicitOperation):
         # self.parameters.declare('struct_solver', True)
         # self.parameters.declare('compute_mass_properties', default=True, types=bool)
         self.num_nodes = None
+        self.parameters.declare('payload', default=50)
 
     def assign_attributes(self):
         self.component = self.parameters['component']
         self.mesh = self.parameters['mesh']
         # self.struct_solver = self.parameters['struct_solver']
         # self.compute_mass_properties = self.parameters['compute_mass_properties']
+        self.payload = self.parameters['payload']
 
     def compute(self):
-        csdl_model = PayloadCSDL(module=self,)
+        payload = self.parameters['payload']
+        csdl_model = PayloadCSDL(module=self, payload=payload)
         return csdl_model
     
     def evaluate(self):
