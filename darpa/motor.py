@@ -15,8 +15,9 @@ class Motor(m3l.ExplicitOperation):
         # self.parameters.declare('struct_solver', True)
         self.parameters.declare('compute_mass_properties', default=True, types=bool)
         self.num_nodes = None
-        self.parameters.declare('motor_power_density', default=200)
+        self.parameters.declare('motor_power_density', default=3.1)
         self.parameters.declare('eta', default=0.75)
+        self.parameters.declare('ratio', default=1.5)
         self.parameters.declare('motor_cg', default=np.array([0,0,0]))
 
     def assign_attributes(self):
@@ -26,13 +27,15 @@ class Motor(m3l.ExplicitOperation):
         self.compute_mass_properties = self.parameters['compute_mass_properties']
         self.motor_power_density = self.parameters['motor_power_density']
         self.eta = self.parameters['eta']
+        self.ratio = self.parameters['ratio']
         self.motor_cg = self.parameters['motor_cg']
 
     def compute(self):
         motor_power_density = self.parameters['motor_power_density']
         eta = self.parameters['eta']
+        ratio = self.parameters['ratio']
         motor_cg = self.parameters['motor_cg']
-        csdl_model = MotorCSDL(module=self, motor_power_density=motor_power_density, eta=eta, motor_cg=motor_cg)
+        csdl_model = MotorCSDL(module=self, motor_power_density=motor_power_density, eta=eta, ratio=ratio, motor_cg=motor_cg)
         return csdl_model
     
     def evaluate(self):
@@ -53,18 +56,20 @@ class MotorCSDL(ModuleCSDL):
     def initialize(self):
         self.parameters.declare('motor_power_density', default=3.1) # (kg/kW)
         self.parameters.declare('eta', default=0.8)
+        self.parameters.declare('ratio', default=1.5)
         self.parameters.declare('motor_cg', default=np.array([0,0,0]))
         self.parameters.declare('motor_inertia', default=np.zeros((3,3)))
 
     def define(self):
         motor_power_density = self.parameters['motor_power_density']
         eta = self.parameters['eta']
+        ratio = self.parameters['ratio']
         motor_cg = self.parameters['motor_cg']
         motor_inertia = self.parameters['motor_inertia']
 
         required_power = self.declare_variable('required_power')/1000 # (kW)
 
-        motor_mass = required_power*motor_power_density/eta
+        motor_mass = ratio*required_power*motor_power_density/eta
         self.register_module_output('mass', motor_mass)
 
         motor_cg = self.create_input('cg_vector', motor_cg)
