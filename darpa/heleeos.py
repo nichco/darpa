@@ -49,13 +49,15 @@ class HELEEOSCSDL(ModuleCSDL):
     def define(self):
         # aperture_size = self.declare_variable('aperture_size')  # aperture_size (m)
         aperture_size = self.register_module_input('aperture_size', shape=(1,), promotes=True)
-        # self.print_var(aperture_size)
+        self.print_var(aperture_size)
 
         horizontal_distance = self.register_module_input('horizontal_distance', shape=(1,), computed_upstream=False)
         #horizontal_distance = self.create_input('horizontal_distance',val=300000)  # engagement distance (m)
-        # self.print_var(horizontal_distance)
+        self.print_var(horizontal_distance)
         
-        altitude = self.register_module_input('altitude', shape=(1,), vectorized=True)
+        altitude = self.declare_variable('altitude')
+        # altitude = self.register_module_input('altitude', shape=(1,), vectorized=True)
+        self.print_var(altitude)
 
 
         u = self.register_module_input('u', shape=(1,1), vectorized=True)
