@@ -73,17 +73,18 @@ class PodCSDL(ModuleCSDL):
         d = self.register_module_input('aperture_diameter',shape=(1,), computed_upstream=False)
 
         # velocity:
-        velocity = self.declare_variable('velocity')
-        # u = self.register_module_input('u',shape=(1,1),vectorized=True)
-        # v = self.register_module_input('v',shape=(1,1),vectorized=True)
-        # w = self.register_module_input('w',shape=(1,1),vectorized=True)
-        # velocity = csdl.reshape((u**2 + v**2 + w**2)**0.5, (1,))
+        # velocity = self.declare_variable('velocity')
+        u = self.declare_variable('u', shape=(1,1))
+        v = self.declare_variable('v', shape=(1,1))
+        w = self.declare_variable('w', shape=(1,1))
+        velocity = csdl.reshape((u**2 + v**2 + w**2)**0.5, (1,))
+        # self.print_var(velocity)
 
         # density:
         rho = self.declare_variable('density')
         # density = self.register_module_input('density', shape=(1,1), vectorized=True)
         # self.print_var(density)
-        rho = csdl.reshape(density, (1,))
+        # rho = csdl.reshape(rho, (1,))
 
         # the pod's frontal area:
         area = np.pi*(d/2)**2
@@ -106,6 +107,6 @@ class PodCSDL(ModuleCSDL):
 
 
 
-        pod_mass = self.create_input('mass', pod_mass)
+        self.register_output('mass', pod_mass)
         pod_cg = self.create_input('cg_vector', pod_cg)
         pod_inertia = self.create_input('inertia_tensor', pod_inertia)
