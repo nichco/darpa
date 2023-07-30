@@ -67,13 +67,38 @@ class BatteryCSDL(ModuleCSDL):
         battery_cg = self.parameters['battery_cg']
         battery_inertia = self.parameters['battery_inertia']
 
-        p_req_left = self.declare_variable('required_power_left_rotor')
-        p_req_right = self.declare_variable('required_power_right_rotor')
 
-        p_req = p_req_left + p_req_right # the total power required
+        left_prop_rpm = self.declare_variable('left_prop_rpm')
+        left_prop_n = left_prop_rpm/60
+        right_prop_rpm = self.declare_variable('right_prop_rpm')
+        right_prop_n = right_prop_rpm/60
 
-        battery_mass = (endurance*p_req/(esb*eta))
-        self.register_output('mass', battery_mass)
+        left_prop_C_Q = self.declare_variable('left_prop_C_Q')
+        left_prop_C_P = 2*np.pi*left_prop_C_Q
+        right_prop_C_Q = self.declare_variable('right_prop_C_Q')
+        right_prop_C_P = 2*np.pi*right_prop_C_Q
+
+        # self.print_var(left_prop_C_Q)
+        # self.print_var(right_prop_C_Q)
+
+        rho = self.declare_variable('density', val=1.225)
+        # self.print_var(rho)
+
+        left_prop_radius = self.declare_variable('left_prop_radius', val=1.1)
+        left_prop_diameter = left_prop_radius*2
+        right_prop_radius = self.declare_variable('right_prop_radius', val=1.1)
+        right_prop_diameter = right_prop_radius*2
+
+
+        left_prop_power = left_prop_C_P*rho*(left_prop_n**3)*(left_prop_diameter**5)
+        self.register_output('left_prop_power', left_prop_power)
+        right_prop_power = right_prop_C_P*rho*(right_prop_n**3)*(right_prop_diameter**5)
+        self.register_output('right_prop_power', right_prop_power)
+
+        p_req = (left_prop_power + right_prop_power)
+        self.register_output('required_power', p_req)
+
+        battery_mass = self.register_output('mass', endurance*p_req/(esb*eta))
 
         battery_cg = self.create_input('cg_vector', battery_cg)
         battery_inertia = self.create_input('inertia_tensor', battery_inertia)
