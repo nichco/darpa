@@ -8,7 +8,7 @@ from smt.surrogate_models import KRG
 import scipy.io as sio
 
 
-heleeos_data = sio.loadmat('new_heleeos_data.mat')
+heleeos_data = sio.loadmat('darpa/new_heleeos_data.mat')
 
 
 
