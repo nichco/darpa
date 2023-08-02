@@ -25,6 +25,8 @@ from darpa.fuselage import Fuselage
 from darpa.heleeos import HELEEOS
 from darpa.pod import Pod
 
+
+
 file_name = 'darpa2.stp'
 
 caddee = cd.CADDEE()
@@ -75,6 +77,18 @@ right_fuse = Component(name='right_fuse', spatial_representation=spatial_rep, pr
 sys_rep.add_component(right_fuse)
 # right_fuse.plot()
 
+# right prop blades (for visualization, BEM uses lprop and rprop)
+right_rotor_primitive_names = list(spatial_rep.get_primitives(search_names=['rprop']).keys())
+right_rotor = cd.Rotor(name='right_rotor', spatial_representation=spatial_rep, primitive_names=right_rotor_primitive_names)
+sys_rep.add_component(right_rotor)
+# right_rotor.plot()
+
+# left prop blades (for visualization, BEM uses lprop and rprop)
+left_rotor_primitive_names = list(spatial_rep.get_primitives(search_names=['lprop']).keys())
+left_rotor = cd.Rotor(name='left_rotor', spatial_representation=spatial_rep, primitive_names=left_rotor_primitive_names)
+sys_rep.add_component(left_rotor)
+# left_rotor.plot()
+
 
 
 
@@ -83,7 +97,7 @@ sys_rep.add_component(right_fuse)
 wing_geometry_primitives = wing.get_geometry_primitives()
 wing_ffd_bspline_volume = cd.create_cartesian_enclosure_volume(wing_geometry_primitives, num_control_points=(11, 2, 2), order=(4,2,2), xyz_to_uvw_indices=(1,0,2))
 wing_ffd_block = cd.SRBGFFDBlock(name='wing_ffd_block', primitive=wing_ffd_bspline_volume, embedded_entities=wing_geometry_primitives)
-wing_ffd_block.add_translation_u(name='wing_span_scaling', connection_name='wing_span_scaling', order=2,num_dof=2)
+wing_ffd_block.add_translation_u(name='wing_span_scaling', connection_name='wing_span_scaling', order=2,num_dof=2, value=np.array([0., 0.]))
 wing_ffd_block.add_rotation_u(name='wing_incidence', connection_name='wing_incidence', order=1, num_dof=1, value=np.array([0.]))
 #wing_ffd_block.plot_sections()
 #wing_ffd_bspline_volume.plot()
@@ -103,6 +117,7 @@ left_fuse_ffd_bspline_volume = cd.create_cartesian_enclosure_volume(left_fuse_ge
 left_fuse_ffd_block = cd.SRBGFFDBlock(name='left_fuse_ffd_block', primitive=left_fuse_ffd_bspline_volume, embedded_entities=left_fuse_geometry_primitives)
 left_fuse_ffd_block.add_translation_u(name='left_fuse_scaling',order=1,num_dof=1)
 left_fuse_ffd_block.add_rotation_u(name='left_fuse_rotation', connection_name='left_fuse_rotation', order=1, num_dof=1, value=np.array([0.]))
+
 
 # right fuse FFD
 right_fuse_geometry_primitives = right_fuse.get_geometry_primitives()
@@ -249,8 +264,8 @@ design_scenario = cd.DesignScenario(name='cruise')
 cruise_model = m3l.Model()
 cruise_condition = cd.CruiseCondition(name='cruise')
 cruise_condition.atmosphere_model = cd.SimpleAtmosphereModel()
-cruise_condition.set_module_input(name='altitude', val=18288)
-cruise_condition.set_module_input(name='mach_number', val=0.17, dv_flag=True, lower=0.15, upper=0.3)
+cruise_condition.set_module_input(name='altitude', val=5000) # 18288
+cruise_condition.set_module_input(name='mach_number', val=0.15, dv_flag=True, lower=0.1, upper=0.3)
 cruise_condition.set_module_input(name='range', val=10000)
 cruise_condition.set_module_input(name='pitch_angle', val=np.deg2rad(0), dv_flag=True, lower=np.deg2rad(-10), upper=np.deg2rad(10))
 cruise_condition.set_module_input(name='flight_path_angle', val=0)
@@ -297,7 +312,7 @@ right_prop_mesh = BEMMesh(
 
 
 left_bem_model = BEM(disk_prefix='left_prop', blade_prefix='left_prop', component=left_prop, mesh=left_prop_mesh)
-left_bem_model.set_module_input('rpm', val=1100, dv_flag=True, lower=500, upper=4000, scaler=1e-3)
+left_bem_model.set_module_input('rpm', val=1500, dv_flag=True, lower=500, upper=3000, scaler=1e-3)
 left_bem_model.set_module_input('propeller_radius', val=1.0)
 left_bem_model.set_module_input('chord_cp', val=np.linspace(0.15, 0.05, 4), dv_flag=False)
 left_bem_model.set_module_input('twist_cp', val=np.deg2rad(np.linspace(50, 15, 4)), dv_flag=False)
@@ -308,7 +323,7 @@ cruise_model.register_output(left_bem_forces)
 cruise_model.register_output(left_bem_moments)
 
 right_bem_model = BEM(disk_prefix='right_prop', blade_prefix='right_prop', component=right_prop, mesh=right_prop_mesh)
-right_bem_model.set_module_input('rpm', val=1100, dv_flag=True, lower=500, upper=4000, scaler=1e-3)
+right_bem_model.set_module_input('rpm', val=1500, dv_flag=True, lower=500, upper=3000, scaler=1e-3)
 right_bem_model.set_module_input('propeller_radius', val=1.0)
 right_bem_model.set_module_input('chord_cp', val=np.linspace(0.15, 0.05, 4), dv_flag=False)
 right_bem_model.set_module_input('twist_cp', val=np.deg2rad(np.linspace(50, 15, 4)), dv_flag=False)
@@ -372,8 +387,8 @@ bounds['right_wing_root'] = {'beam': 'wing_beam','node': 9,'fdim': [1,1,1,0,1,1]
 # create the beam model
 beam = EBBeam(component=wing, mesh=beam_mesh, beams=beams, bounds=bounds, joints=joints, mesh_units='ft')
 beam_mass = Mass(component=wing, mesh=beam_mass_mesh, beams=beams, mesh_units='ft') # the separate mass model thingy
-beam_mass.set_module_input('wing_beam_tcap', val=0.005, dv_flag=True, lower=0.001, upper=0.02, scaler=1E3)
-beam_mass.set_module_input('wing_beam_tweb', val=0.005, dv_flag=True, lower=0.001, upper=0.02, scaler=1E3)
+beam_mass.set_module_input('wing_beam_tcap', val=0.005, dv_flag=True, lower=0.001, upper=0.05, scaler=1E3)
+beam_mass.set_module_input('wing_beam_tweb', val=0.005, dv_flag=True, lower=0.001, upper=0.05, scaler=1E3)
 
 
 cruise_wing_structural_nodal_displacements_mesh = am.vstack((wing_upper_surface_wireframe, wing_lower_surface_wireframe))
@@ -399,6 +414,50 @@ cruise_model.register_output(cruise_structural_wing_mesh_displacements)
 
 
 
+# index functions
+"""
+order = 3
+shape = 5
+space_u = lg.BSplineSpace(name='displacement_base_space',
+                        order=(order, order),
+                        control_points_shape=(shape, shape))
+wing_displacement = index_functions(spatial_rep.get_primitives(search_names=['wing']).keys(), 'wing_displacement', space_u, 3)
+
+
+oml_para_mesh = []
+grid_num = 10
+for name in spatial_rep.get_primitives(search_names=['wing']).keys():
+    for u in np.linspace(0,1,grid_num):
+        for v in np.linspace(0,1,grid_num):
+            oml_para_mesh.append((name, np.array([u,v]).reshape((1,2))))
+
+# mapped_array_thingy = spatial_rep.evaluate_parametric(oml_para_mesh) # pass to ebbeam.nodal_whatever(mapped_array...)
+"""
+"""
+from m3l.utils.utils import index_functions
+nodal_displacment = ebbeam.EBBeamNodalDisplacements(component=wing, beam_mesh=beam_mesh, beams=beams)
+surface_names = list(wing.get_primitives().keys())
+grid_num = 10
+para_grid = []
+for name in surface_names:
+    for u in np.linspace(0,1,grid_num):
+        for v in np.linspace(0,1,grid_num):
+            para_grid.append((name, np.array([u,v]).reshape((1,2))))
+
+# grid_thing = for surface in wing.get_primitives(): make grid
+evaluated_parametric = sys_rep.spatial_representation.evaluate_parametric(para_grid)
+# nodal_displacements = nodal_displacment.evaluate(cruise_structural_wing_mesh_displacements, evaluated_parametric, design_condition=cruise_condition)
+nodal_displacements = nodal_displacment.evaluate(cruise_structural_wing_mesh_displacements, evaluated_parametric,)
+blinespace = lg.BSplineSpace(name='displacements_spline_space', order=(3, 3), control_points_shape=(5, 5))
+displacements_plus_3g = index_functions(surface_names, 'displacements_index', blinespace, 3)
+displacements_plus_3g.inverse_evaluate(para_grid, nodal_displacements)
+# system_m3l_model.register_output(displacements_plus_3g.coefficients, design_condition=cruise_condition)
+cruise_model.register_output(displacements_plus_3g.coefficients, design_condition=cruise_condition)
+"""
+
+
+
+
 
 
 # separate wing mass model
@@ -406,7 +465,7 @@ mass_model_wing_mass = beam_mass.evaluate()
 cruise_model.register_output(mass_model_wing_mass)
 
 # the payload mass model
-payload = Payload(component=wing, payload=75, payload_cg=np.array([4.6,0,0.2]))
+payload = Payload(component=wing, payload=50, payload_cg=np.array([4.6,0,0.2]))
 payload_mass, payload_cg, payload_inertia = payload.evaluate()
 cruise_model.register_output(payload_mass)
 
@@ -416,24 +475,24 @@ battery_mass, battery_cg, battery_inertia = battery.evaluate()
 cruise_model.register_output(battery_mass)
 
 # the motor model
-motor = Motor(component=wing, motor_power_density=3.1, eta=0.75, ratio=3.0, motor_cg=np.array([4.6,0,0.2]))
+motor = Motor(component=wing, motor_power_density=3.1, eta=0.75, ratio=2.5, motor_cg=np.array([4.6,0,0.2])) # 3.1
 motor_mass, motor_cg, motor_inertia = motor.evaluate()
 cruise_model.register_output(motor_mass)
 
 # the fuselage mass model
-fuselage = Fuselage(component=wing, fuse_mass=350, fuse_cg=np.array([4.5,0,0.2]), fuse_cd=0.5, area=2.0)
+fuselage = Fuselage(component=wing, fuse_mass=125, fuse_cg=np.array([4.5,0,0.2]), fuse_cd=0.4, area=0.25)
 fuse_mass, fuse_cg, fuse_inertia, fuse_forces, fuse_moments = fuselage.evaluate()
 cruise_model.register_output(fuse_mass)
 
 # HELEEOS
 heleeos = HELEEOS(component=wing,)
-heleeos.set_module_input('horizontal_distance', val=200000, dv_flag=False)
+heleeos.set_module_input('horizontal_distance', val=250000, dv_flag=False)
 pid = heleeos.evaluate()
 cruise_model.register_output(pid)
 
 # pod model
-pod = Pod(component=wing, cd=0.4, length=2.0, density=75.0, pod_cg=np.array([4.5,0,0.2]))
-pod.set_module_input('aperture_diameter', val=0.75, dv_flag=True, lower=0.5, upper=1.0, scaler=1)
+pod = Pod(component=wing, cd=0.4, length=2.0, density=100.0, pod_cg=np.array([4.5,0,0.2]))
+pod.set_module_input('aperture_diameter', val=0.75, dv_flag=True, lower=0.25, upper=1.0, scaler=1)
 pod_mass, pod_cg, pod_inertia, pod_forces, pod_moments = pod.evaluate()
 cruise_model.register_output(pod_mass)
 
@@ -529,16 +588,18 @@ caddee_csdl_model.connect('system_model.cruise.cruise.cruise.cruise_ac_states_op
 
 
 # tail rotation design variable
-h_tail_act = caddee_csdl_model.create_input('h_tail_act', val=np.deg2rad(-2))
+h_tail_act = caddee_csdl_model.create_input('h_tail_act', val=np.deg2rad(0))
 caddee_csdl_model.add_design_variable('h_tail_act', lower=np.deg2rad(-10), upper=np.deg2rad(10), scaler=1,)
 
 # wing span design variable
 wing_span_scaling = caddee_csdl_model.create_input('wing_span_scaling', val=np.array([0., 0.]))
-# caddee_csdl_model.add_design_variable('wing_span_scaling', lower=-5, upper=5, scaler=1,) # original span is 64 ft
-caddee_csdl_model.add_design_variable('wing_span_scaling', scaler=1,)
+caddee_csdl_model.add_design_variable('wing_span_scaling', lower=-10, upper=10, scaler=1,) # original span is 64 ft
+# caddee_csdl_model.add_design_variable('wing_span_scaling', scaler=1,)
 # [-2, 2] means the wing is getting smaller
 caddee_csdl_model.register_output('wing_span_residual', wing_span_scaling[1] + wing_span_scaling[0])
 caddee_csdl_model.add_constraint('wing_span_residual', equals=0)
+
+caddee_csdl_model.print_var(wing_span_scaling)
 
 # tail span scaling
 tail_span_scaling = caddee_csdl_model.create_input('tail_span_scaling', val=np.array([0., 0.]))
@@ -546,9 +607,13 @@ caddee_csdl_model.add_design_variable('tail_span_scaling', scaler=1, lower=-4, u
 caddee_csdl_model.register_output('tail_span_residual', tail_span_scaling[1] + tail_span_scaling[0])
 caddee_csdl_model.add_constraint('tail_span_residual', equals=0)
 
+# connect the tail scaling variable to the left/right fuselages and the rotors
+caddee_csdl_model.register_output('left_fuse_scaling', tail_span_scaling[0])
+caddee_csdl_model.register_output('right_fuse_scaling', tail_span_scaling[1])
+
 
 # wing stress constraint
-caddee_csdl_model.add_constraint('system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress', upper=500E6/3.0, scaler=1E-8)
+caddee_csdl_model.add_constraint('system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress', upper=500E6/2, scaler=1E-8)
 
 # HELEEOS power residual constraint
 caddee_csdl_model.add_constraint('system_model.cruise.cruise.cruise.heleeos.power_residual', lower=0, scaler=1E-3)
@@ -563,12 +628,12 @@ caddee_csdl_model.add_objective('system_model.cruise.cruise.cruise.total_constan
 
 # simulator
 sim = Simulator(caddee_csdl_model, analytics=True)
-# sim.run()
+#sim.run()
 
 
 
 prob = CSDLProblem(problem_name='lpc', simulator=sim)
-optimizer = SLSQP(prob, maxiter=500, ftol=1E-7)
+optimizer = SLSQP(prob, maxiter=200, ftol=1E-7)
 optimizer.solve()
 optimizer.print_results()
 
