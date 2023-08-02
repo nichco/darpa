@@ -27,7 +27,7 @@ from darpa.pod import Pod
 
 
 
-file_name = 'darpa2.stp'
+file_name = 'darpa/darpa2.stp'
 
 caddee = cd.CADDEE()
 caddee.system_model = system_model = cd.SystemModel()
@@ -115,7 +115,7 @@ tail_ffd_block.add_rotation_u(name='tail_twist_distribution', connection_name='h
 left_fuse_geometry_primitives = left_fuse.get_geometry_primitives()
 left_fuse_ffd_bspline_volume = cd.create_cartesian_enclosure_volume(left_fuse_geometry_primitives, num_control_points=(2, 2, 2), order=(2,2,2), xyz_to_uvw_indices=(1,0,2))
 left_fuse_ffd_block = cd.SRBGFFDBlock(name='left_fuse_ffd_block', primitive=left_fuse_ffd_bspline_volume, embedded_entities=left_fuse_geometry_primitives)
-left_fuse_ffd_block.add_translation_u(name='left_fuse_scaling',order=1,num_dof=1)
+left_fuse_ffd_block.add_translation_u(name='left_fuse_scaling', connection_name='left_fuse_scaling', order=1,num_dof=1)
 left_fuse_ffd_block.add_rotation_u(name='left_fuse_rotation', connection_name='left_fuse_rotation', order=1, num_dof=1, value=np.array([0.]))
 
 
@@ -123,15 +123,30 @@ left_fuse_ffd_block.add_rotation_u(name='left_fuse_rotation', connection_name='l
 right_fuse_geometry_primitives = right_fuse.get_geometry_primitives()
 right_fuse_ffd_bspline_volume = cd.create_cartesian_enclosure_volume(right_fuse_geometry_primitives, num_control_points=(2, 2, 2), order=(2,2,2), xyz_to_uvw_indices=(1,0,2))
 right_fuse_ffd_block = cd.SRBGFFDBlock(name='right_fuse_ffd_block', primitive=right_fuse_ffd_bspline_volume, embedded_entities=right_fuse_geometry_primitives)
-right_fuse_ffd_block.add_translation_u(name='right_fuse_scaling',order=1,num_dof=1)
+right_fuse_ffd_block.add_translation_u(name='right_fuse_scaling', connection_name='right_fuse_scaling', order=1,num_dof=1)
 right_fuse_ffd_block.add_rotation_u(name='right_fuse_rotation', connection_name='right_fuse_rotation', order=1, num_dof=1, value=np.array([0.]))
 
+
+
+# left prop FFD
+left_prop_geometry_primitives = left_prop.get_geometry_primitives()
+left_prop_ffd_bspline_volume = cd.create_cartesian_enclosure_volume(left_prop_geometry_primitives, num_control_points=(2, 2, 2), order=(2,2,2), xyz_to_uvw_indices=(1,0,2))
+left_prop_ffd_block = cd.SRBGFFDBlock(name='left_prop_ffd_block', primitive=left_prop_ffd_bspline_volume, embedded_entities=left_prop_geometry_primitives)
+left_prop_ffd_block.add_translation_u(name='left_prop_pos', connection_name='left_prop_pos', order=1,num_dof=1)
+
+# right prop FFD
+right_prop_geometry_primitives = right_prop.get_geometry_primitives()
+right_prop_ffd_bspline_volume = cd.create_cartesian_enclosure_volume(right_prop_geometry_primitives, num_control_points=(2, 2, 2), order=(2,2,2), xyz_to_uvw_indices=(1,0,2))
+right_prop_ffd_block = cd.SRBGFFDBlock(name='right_prop_ffd_block', primitive=right_prop_ffd_bspline_volume, embedded_entities=right_prop_geometry_primitives)
+right_prop_ffd_block.add_translation_u(name='right_prop_pos', connection_name='right_prop_pos', order=1,num_dof=1)
 
 
 ffd_set = cd.SRBGFFDSet(name='ffd_set',ffd_blocks={wing_ffd_block.name : wing_ffd_block,
                                                    tail_ffd_block.name : tail_ffd_block,
                                                    left_fuse_ffd_block.name : left_fuse_ffd_block,
-                                                   right_fuse_ffd_block.name : right_fuse_ffd_block})
+                                                   right_fuse_ffd_block.name : right_fuse_ffd_block,
+                                                   left_prop_ffd_block.name : left_prop_ffd_block,
+                                                   right_prop_ffd_block.name : right_prop_ffd_block})
 sys_param.add_geometry_parameterization(ffd_set)
 sys_param.setup()
 
@@ -290,7 +305,7 @@ left_prop_mesh = BEMMesh(
     airfoil='NACA_4412',
     mesh_units='ft',
     use_rotor_geometry=False,
-    use_airfoil_ml=True,
+    use_airfoil_ml=False,
     airfoil_polar=None,
     chord_b_spline_rep=True,
     twist_b_spline_rep=True,)
@@ -305,7 +320,7 @@ right_prop_mesh = BEMMesh(
     airfoil='NACA_4412',
     mesh_units='ft',
     use_rotor_geometry=False,
-    use_airfoil_ml=True,
+    use_airfoil_ml=False,
     airfoil_polar=None,
     chord_b_spline_rep=True,
     twist_b_spline_rep=True,)
@@ -387,8 +402,8 @@ bounds['right_wing_root'] = {'beam': 'wing_beam','node': 9,'fdim': [1,1,1,0,1,1]
 # create the beam model
 beam = EBBeam(component=wing, mesh=beam_mesh, beams=beams, bounds=bounds, joints=joints, mesh_units='ft')
 beam_mass = Mass(component=wing, mesh=beam_mass_mesh, beams=beams, mesh_units='ft') # the separate mass model thingy
-beam_mass.set_module_input('wing_beam_tcap', val=0.005, dv_flag=True, lower=0.001, upper=0.05, scaler=1E3)
-beam_mass.set_module_input('wing_beam_tweb', val=0.005, dv_flag=True, lower=0.001, upper=0.05, scaler=1E3)
+beam_mass.set_module_input('wing_beam_tcap', val=0.004, dv_flag=True, lower=0.001, upper=0.04, scaler=1E3)
+beam_mass.set_module_input('wing_beam_tweb', val=0.004, dv_flag=True, lower=0.001, upper=0.04, scaler=1E3)
 
 
 cruise_wing_structural_nodal_displacements_mesh = am.vstack((wing_upper_surface_wireframe, wing_lower_surface_wireframe))
@@ -412,30 +427,17 @@ beam_displacements_model = ebbeam.EBBeam(component=wing, mesh=beam_mesh, beams=b
 cruise_structural_wing_mesh_displacements, cruise_structural_wing_mesh_rotations, wing_mass, wing_cg, wing_inertia_tensor = beam_displacements_model.evaluate(forces=cruise_structural_wing_mesh_forces)
 cruise_model.register_output(cruise_structural_wing_mesh_displacements)
 
+print(cruise_structural_wing_mesh_displacements)
+
+
+
+
+
 
 
 # index functions
-"""
-order = 3
-shape = 5
-space_u = lg.BSplineSpace(name='displacement_base_space',
-                        order=(order, order),
-                        control_points_shape=(shape, shape))
-wing_displacement = index_functions(spatial_rep.get_primitives(search_names=['wing']).keys(), 'wing_displacement', space_u, 3)
-
-
-oml_para_mesh = []
-grid_num = 10
-for name in spatial_rep.get_primitives(search_names=['wing']).keys():
-    for u in np.linspace(0,1,grid_num):
-        for v in np.linspace(0,1,grid_num):
-            oml_para_mesh.append((name, np.array([u,v]).reshape((1,2))))
-
-# mapped_array_thingy = spatial_rep.evaluate_parametric(oml_para_mesh) # pass to ebbeam.nodal_whatever(mapped_array...)
-"""
-"""
 from m3l.utils.utils import index_functions
-nodal_displacment = ebbeam.EBBeamNodalDisplacements(component=wing, beam_mesh=beam_mesh, beams=beams)
+nodal_displacement = ebbeam.EBBeamNodalDisplacements(component=wing, beam_mesh=beam_mesh, beams=beams)
 surface_names = list(wing.get_primitives().keys())
 grid_num = 10
 para_grid = []
@@ -444,16 +446,20 @@ for name in surface_names:
         for v in np.linspace(0,1,grid_num):
             para_grid.append((name, np.array([u,v]).reshape((1,2))))
 
-# grid_thing = for surface in wing.get_primitives(): make grid
-evaluated_parametric = sys_rep.spatial_representation.evaluate_parametric(para_grid)
-# nodal_displacements = nodal_displacment.evaluate(cruise_structural_wing_mesh_displacements, evaluated_parametric, design_condition=cruise_condition)
-nodal_displacements = nodal_displacment.evaluate(cruise_structural_wing_mesh_displacements, evaluated_parametric,)
-blinespace = lg.BSplineSpace(name='displacements_spline_space', order=(3, 3), control_points_shape=(5, 5))
-displacements_plus_3g = index_functions(surface_names, 'displacements_index', blinespace, 3)
-displacements_plus_3g.inverse_evaluate(para_grid, nodal_displacements)
-# system_m3l_model.register_output(displacements_plus_3g.coefficients, design_condition=cruise_condition)
-cruise_model.register_output(displacements_plus_3g.coefficients, design_condition=cruise_condition)
-"""
+
+evaluated_parametric_map = sys_rep.spatial_representation.evaluate_parametric(para_grid)
+#nodal_displacements = nodal_displacement.evaluate(cruise_structural_wing_mesh_displacements.reshape((1,15,3)), evaluated_parametric_map)
+#cruise_model.register_output(nodal_displacements)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -607,13 +613,30 @@ caddee_csdl_model.add_design_variable('tail_span_scaling', scaler=1, lower=-4, u
 caddee_csdl_model.register_output('tail_span_residual', tail_span_scaling[1] + tail_span_scaling[0])
 caddee_csdl_model.add_constraint('tail_span_residual', equals=0)
 
-# connect the tail scaling variable to the left/right fuselages and the rotors
-caddee_csdl_model.register_output('left_fuse_scaling', tail_span_scaling[0])
-caddee_csdl_model.register_output('right_fuse_scaling', tail_span_scaling[1])
+# connect the tail scaling variable to the left/right fuselages and the rotors (for visualization)
+caddee_csdl_model.register_output('left_fuse_scaling', 1*tail_span_scaling[0])
+caddee_csdl_model.register_output('right_fuse_scaling', 1*tail_span_scaling[1])
+caddee_csdl_model.register_output('left_prop_pos', 1*tail_span_scaling[0])
+caddee_csdl_model.register_output('right_prop_pos', 1*tail_span_scaling[1])
+
+
+# beam symmetry constraint
+# system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.wing_beam_tcap
+tcap = caddee_csdl_model.declare_variable('system_model.cruise.cruise.cruise.mass_model.wing_beam_tcap', shape=(num_wing_beam - 1))
+tcap_a = tcap[0:6]
+tcap_b = tcap[8:14]
+caddee_csdl_model.register_output('tcap_residual', tcap_b - tcap_a)
+# caddee_csdl_model.add_constraint('tcap_residual', equals=0)
+
+tweb = caddee_csdl_model.declare_variable('system_model.cruise.cruise.cruise.mass_model.wing_beam_tweb', shape=(num_wing_beam - 1))
+tweb_a = tweb[0:6]
+tweb_b = tweb[8:14]
+caddee_csdl_model.register_output('tweb_residual', tweb_b - tweb_a)
+# caddee_csdl_model.add_constraint('tweb_residual', equals=0)
 
 
 # wing stress constraint
-caddee_csdl_model.add_constraint('system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress', upper=500E6/2, scaler=1E-8)
+caddee_csdl_model.add_constraint('system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress', upper=500E6/3, scaler=1E-8)
 
 # HELEEOS power residual constraint
 caddee_csdl_model.add_constraint('system_model.cruise.cruise.cruise.heleeos.power_residual', lower=0, scaler=1E-3)
@@ -626,14 +649,19 @@ caddee_csdl_model.add_constraint('system_model.cruise.cruise.cruise.euler_eom_ge
 caddee_csdl_model.add_objective('system_model.cruise.cruise.cruise.total_constant_mass_properties.total_mass', scaler=1E-2)
 
 
+
+
+
+
+
+
 # simulator
 sim = Simulator(caddee_csdl_model, analytics=True)
-#sim.run()
-
+# sim.run()
 
 
 prob = CSDLProblem(problem_name='lpc', simulator=sim)
-optimizer = SLSQP(prob, maxiter=200, ftol=1E-7)
+optimizer = SLSQP(prob, maxiter=500, ftol=1E-8)
 optimizer.solve()
 optimizer.print_results()
 
