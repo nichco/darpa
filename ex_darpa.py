@@ -328,7 +328,7 @@ right_prop_mesh = BEMMesh(
 
 left_bem_model = BEM(disk_prefix='left_prop', blade_prefix='left_prop', component=left_prop, mesh=left_prop_mesh)
 left_bem_model.set_module_input('rpm', val=1500, dv_flag=True, lower=500, upper=3000, scaler=1e-3)
-left_bem_model.set_module_input('propeller_radius', val=1.0)
+left_bem_model.set_module_input('propeller_radius', val=1.0, dv_flag=False)
 left_bem_model.set_module_input('chord_cp', val=np.linspace(0.15, 0.05, 4), dv_flag=False)
 left_bem_model.set_module_input('twist_cp', val=np.deg2rad(np.linspace(50, 15, 4)), dv_flag=False)
 left_bem_model.set_module_input('thrust_vector', val=np.array([1., 0., 0.]))
@@ -339,7 +339,7 @@ cruise_model.register_output(left_bem_moments)
 
 right_bem_model = BEM(disk_prefix='right_prop', blade_prefix='right_prop', component=right_prop, mesh=right_prop_mesh)
 right_bem_model.set_module_input('rpm', val=1500, dv_flag=True, lower=500, upper=3000, scaler=1e-3)
-right_bem_model.set_module_input('propeller_radius', val=1.0)
+right_bem_model.set_module_input('propeller_radius', val=1.0, dv_flag=False)
 right_bem_model.set_module_input('chord_cp', val=np.linspace(0.15, 0.05, 4), dv_flag=False)
 right_bem_model.set_module_input('twist_cp', val=np.deg2rad(np.linspace(50, 15, 4)), dv_flag=False)
 right_bem_model.set_module_input('thrust_vector', val=np.array([1., 0., 0.]))
@@ -363,7 +363,8 @@ vlm_model = VASTFluidSover(
         ],
     fluid_problem=FluidProblem(solver_option='VLM', problem_type='fixed_wake'),
     mesh_unit='ft',
-    cl0=[0.25, 0]
+    cl0=[0.25, 0],
+
 )
 vlm_panel_forces, vlm_forces, vlm_moments = vlm_model.evaluate(ac_states=ac_states)
 cruise_model.register_output(vlm_forces)
@@ -486,7 +487,7 @@ motor_mass, motor_cg, motor_inertia = motor.evaluate()
 cruise_model.register_output(motor_mass)
 
 # the fuselage mass model
-fuselage = Fuselage(component=wing, fuse_mass=125, fuse_cg=np.array([4.5,0,0.2]), fuse_cd=0.4, area=0.25)
+fuselage = Fuselage(component=wing, fuse_mass=150, fuse_cg=np.array([4.5,0,0.2]), fuse_cd=0.4, area=0.25)
 fuse_mass, fuse_cg, fuse_inertia, fuse_forces, fuse_moments = fuselage.evaluate()
 cruise_model.register_output(fuse_mass)
 
@@ -654,10 +655,10 @@ caddee_csdl_model.add_objective('system_model.cruise.cruise.cruise.total_constan
 
 
 
-
+"""
 # simulator
 sim = Simulator(caddee_csdl_model, analytics=True)
-# sim.run()
+#sim.run()
 
 
 prob = CSDLProblem(problem_name='lpc', simulator=sim)
@@ -685,7 +686,6 @@ print('Left Prop Power: ', sim['system_model.cruise.cruise.cruise.battery_mass_m
 print('Right Prop Power: ', sim['system_model.cruise.cruise.cruise.battery_mass_model.right_prop_power'])
 print('Battery Mass: ', sim['system_model.cruise.cruise.cruise.battery_mass_model.mass'])
 print('Wing Mass: ', sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.MassProp.struct_mass'])
-# print('Wing Beam Forces: ', sim['system_model.cruise.cruise.cruise.wing_eb_beam_force_mapping.wing_beam_forces'])
 print('Motor Mass: ', sim['system_model.cruise.cruise.cruise.motor_mass_model.mass'])
 print('Pod Mass: ', sim['system_model.cruise.cruise.cruise.pod_model.mass'])
 print('Fuselage Mass: ', sim['system_model.cruise.cruise.cruise.fuselage_mass_model.mass'])
@@ -695,19 +695,14 @@ print('PID: ', sim['system_model.cruise.cruise.cruise.heleeos.pid'])
 print('HELEEOS Residual: ', sim['system_model.cruise.cruise.cruise.heleeos.power_residual'])
 print('Wing Span Scaling: ', sim['system_parameterization.ffd_set.affine_section_properties_model.wing_span_scaling'])
 print('Tail Span Scaling: ', sim['system_parameterization.ffd_set.affine_section_properties_model.tail_span_scaling'])
+print('Left prop radius: ', sim['system_model.cruise.cruise.cruise.left_prop_bem_model.propeller_radius'])
+print('Right prop radius: ', sim['system_model.cruise.cruise.cruise.right_prop_bem_model.propeller_radius'])
 print('Trim Residual: ', sim['system_model.cruise.cruise.cruise.euler_eom_gen_ref_pt.trim_residual'])
 
 # print('New Stress: ', sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress'])
-
 # print('Wing Mesh: ', sim['system_representation.outputs_model.design_outputs_model.wing_beam_mesh'])
 
-"""
-f = sim['system_model.cruise.cruise.cruise.wing_eb_beam_force_mapping.wing_beam_forces']
-fz = f[:,:,2]
-lift = np.sum(fz)
-lift_mass = lift/9.81
-print(lift_mass)
-"""
+print('Buckle Ratio: ', sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.bkl'])
 
 stress = sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress']
 disp = sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.wing_beam_displacement']
@@ -719,3 +714,206 @@ plt.show()
 
 plt.plot(disp[:,2])
 plt.show()
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# VISUALIZATION
+import lsdo_dash.api as ld
+caddee_viz = ld.caddee_plotters.CaddeeViz(
+    caddee = caddee,
+    system_m3l_model = system_model,
+    design_configuration_map={},
+    system_prefix='',
+)
+import csdl
+rep = csdl.GraphRepresentation(caddee_csdl_model)
+
+class TC2DB(ld.DashBuilder):
+    def define(self, *args):
+
+
+        geo_frame = self.add_frame(
+            'full_geometry_frame',
+            height_in=16.,
+            width_in=24.,
+            ncols=130,
+            nrows = 80,
+            wspace=0.4,
+            hspace=0.4,
+         )
+
+
+        # +=+=+=+=+=+=+=+=+=+=+=+= HERE IS THE GEOMETRY PLOTTING STUFF +=+=+=+=+=+=+=+=+=+=+=+=
+        def z_reverser(locations, state):
+            # Reverse the z axis of the geometry because beam solver
+            state[:,2] = -state[:,2]
+            return locations, state
+
+        center_x = 20  # eyeballing center x coordinate of geometry
+        center_z = 8  # eyeballing center z coordinate of geometry
+        camera_settings = {
+            'pos': (-40, -22, 37),
+            'viewup': (0, 0, 1),
+            'focalPoint': (center_x+8, 0, center_z-20)
+        }
+
+        geo_elements = []
+        geo_elements.append(caddee_viz.build_geometry_plotter(show = False, opacity = 0.3))
+        geo_elements.append(caddee_viz.build_state_plotter(
+            wing_displacement,
+            rep = rep,
+            displacements= 10,
+            state_callback = z_reverser
+        ))
+        geo_frame[0:50,40:] = caddee_viz.build_vedo_renderer(geo_elements, camera_settings = camera_settings, show = 0)
+        # +=+=+=+=+=+=+=+=+=+=+=+= HERE IS THE GEOMETRY PLOTTING STUFF +=+=+=+=+=+=+=+=+=+=+=+=
+
+        # plot mass
+        geo_frame[0:20,0:40] = ld.default_plotters.build_historic_plotter(
+            'system_model.cruise.cruise.cruise.total_constant_mass_properties.total_mass',
+            title = 'Total Mass',
+            legend = False,
+            # xlim = [0, 200], #SET XLIM YLIM HERE
+            # ylim = [0, 200], #SET XLIM YLIM HERE
+        )
+
+        # plot trim residual
+        geo_frame[25:45,0:40] = ld.default_plotters.build_historic_plotter(
+            'system_model.cruise.cruise.cruise.euler_eom_gen_ref_pt.trim_residual',
+            title = 'Trim Residual',
+            legend = False,
+            plot_type = 'semilogy',
+        )
+
+        # plot mesh vs span
+        def plot_2D(ax_subplot, data_dict, data_dict_history):
+            y_axis = data_dict['system_model.cruise.cruise.cruise.mass_model.wing_beam_tcap'].flatten()
+            x_axis_but_wrong = data_dict['system_representation.outputs_model.design_outputs_model.wing_beam_mesh'][:,:,1].flatten()
+            x_axis = []
+            for i in range(x_axis_but_wrong.size-1):
+                x_axis.append((x_axis_but_wrong[i] + x_axis_but_wrong[i+1])/2.0)
+            ax_subplot.plot(x_axis, y_axis)
+            ax_subplot.set_ylabel('Cap Thickness')
+            # ax_subplot.set_ylim([0.0, 5.0])
+            # ax_subplot.set_xlim([0.0, 5.0])
+            ax_subplot.set_xlabel('Span (ft)')
+            ax_subplot.set_title('Thickness (m) vs Span')
+
+        geo_frame[50:70,0:40] = ld.BaseAxesPlotter(
+            required_vars = [
+                'system_representation.outputs_model.design_outputs_model.wing_beam_mesh',
+                'system_model.cruise.cruise.cruise.mass_model.wing_beam_tcap'],
+            plot_function = plot_2D,
+        )
+
+        # plot mesh vs stress
+        def plot_2D(ax_subplot, data_dict, data_dict_history):
+            y_axis = data_dict['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress']
+            x_axis_but_wrong = data_dict['system_representation.outputs_model.design_outputs_model.wing_beam_mesh'][:,:,1].flatten()
+            x_axis = []
+            for i in range(x_axis_but_wrong.size-1):
+                x_axis.append((x_axis_but_wrong[i] + x_axis_but_wrong[i+1])/2.0)
+            ax_subplot.plot(x_axis, y_axis)
+            ax_subplot.set_ylabel('Stress')
+            # ax_subplot.set_ylim([0.0, 5.0])
+            # ax_subplot.set_xlim([0.0, 5.0])
+            ax_subplot.set_xlabel('Span (ft)')
+            ax_subplot.set_title('Stress vs Span')
+
+        geo_frame[50:70,45:85] = ld.BaseAxesPlotter(
+            required_vars = [
+                'system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress',
+                'system_representation.outputs_model.design_outputs_model.wing_beam_mesh'],
+            plot_function = plot_2D,
+        )
+
+        # plot something here?
+        geo_frame[50:70,90:130] = ld.BaseAxesPlotter(
+            required_vars = [
+                'system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress',
+                'system_representation.outputs_model.design_outputs_model.wing_beam_mesh'],
+            plot_function = plot_2D,
+        )
+
+if __name__ == '__main__':
+    dashbuilder = TC2DB()
+    # dashbuilder = None
+
+    # simulator
+    sim = Simulator(caddee_csdl_model, analytics=True, dashboard=dashbuilder)
+    # sim.run()
+
+    # exit()
+    prob = CSDLProblem(problem_name='lpc', simulator=sim)
+    optimizer = SLSQP(prob, maxiter=200, ftol=1E-8)
+    optimizer.solve()
+    optimizer.print_results()
+
+    print('Mach: ', sim['system_model.cruise.cruise.cruise.cruise_ac_states_operation.cruise_mach_number'])
+    print('U: ', sim['system_model.cruise.cruise.cruise.cruise_ac_states_operation.u'])
+    print('V: ', sim['system_model.cruise.cruise.cruise.cruise_ac_states_operation.v'])
+    print('W: ', sim['system_model.cruise.cruise.cruise.cruise_ac_states_operation.w'])
+    print('Pitch Angle: ', sim['system_model.cruise.cruise.cruise.cruise_ac_states_operation.cruise_pitch_angle'])
+    print('Left Prop RPM: ', sim['system_model.cruise.cruise.cruise.left_prop_bem_model.rpm'])
+    print('Right Prop RPM: ', sim['system_model.cruise.cruise.cruise.right_prop_bem_model.rpm'])
+    print('H-Tail Act: ', sim['system_parameterization.ffd_set.rotational_section_properties_model.h_tail_act'])
+    print('Total Mass: ', sim['system_model.cruise.cruise.cruise.total_constant_mass_properties.total_mass'])
+    print('CG: ', sim['system_model.cruise.cruise.cruise.total_constant_mass_properties.total_cg_vector'])
+    print('Total Forces: ', sim['system_model.cruise.cruise.cruise.total_forces_moments_model.total_forces'])
+    print('Total Moments: ', sim['system_model.cruise.cruise.cruise.total_forces_moments_model.total_moments'])
+    print('Left Prop Power: ', sim['system_model.cruise.cruise.cruise.battery_mass_model.left_prop_power'])
+    print('Right Prop Power: ', sim['system_model.cruise.cruise.cruise.battery_mass_model.right_prop_power'])
+    print('Battery Mass: ', sim['system_model.cruise.cruise.cruise.battery_mass_model.mass'])
+    print('Wing Mass: ', sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.MassProp.struct_mass'])
+    # print('Wing Beam Forces: ', sim['system_model.cruise.cruise.cruise.wing_eb_beam_force_mapping.wing_beam_forces'])
+    print('Motor Mass: ', sim['system_model.cruise.cruise.cruise.motor_mass_model.mass'])
+    print('Pod Mass: ', sim['system_model.cruise.cruise.cruise.pod_model.mass'])
+    print('Fuselage Mass: ', sim['system_model.cruise.cruise.cruise.fuselage_mass_model.mass'])
+    print('Payload Mass: ', sim['system_model.cruise.cruise.cruise.payload_mass_model.mass'])
+    print('Aperture Diameter: ', sim['system_model.cruise.cruise.cruise.pod_model.aperture_diameter'])
+    print('PID: ', sim['system_model.cruise.cruise.cruise.heleeos.pid'])
+    print('HELEEOS Residual: ', sim['system_model.cruise.cruise.cruise.heleeos.power_residual'])
+    print('Wing Span Scaling: ', sim['system_parameterization.ffd_set.affine_section_properties_model.wing_span_scaling'])
+    print('Tail Span Scaling: ', sim['system_parameterization.ffd_set.affine_section_properties_model.tail_span_scaling'])
+    print('Trim Residual: ', sim['system_model.cruise.cruise.cruise.euler_eom_gen_ref_pt.trim_residual'])
+
+    # print('New Stress: ', sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress'])
+
+    # print('Wing Mesh: ', sim['system_representation.outputs_model.design_outputs_model.wing_beam_mesh'])
+
+    """
+    f = sim['system_model.cruise.cruise.cruise.wing_eb_beam_force_mapping.wing_beam_forces']
+    fz = f[:,:,2]
+    lift = np.sum(fz)
+    lift_mass = lift/9.81
+    print(lift_mass)
+    """
+
+    stress = sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.new_stress']
+    disp = sim['system_model.cruise.cruise.cruise.wing_eb_beam_model.Aframe.wing_beam_displacement']
+    import matplotlib.pyplot as plt
+    plt.rcParams.update(plt.rcParamsDefault)
+
+    plt.plot(stress)
+    plt.show()
+
+    plt.plot(disp[:,2])
+    plt.show()
