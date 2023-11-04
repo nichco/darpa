@@ -24,3 +24,5 @@ plt.title('Structural Verification and Validation')
 
 plt.savefig('structvv.png', dpi=500, transparent=True, bbox_inches="tight")
 plt.show()
+
+# Edit for git test
