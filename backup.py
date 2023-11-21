@@ -165,7 +165,8 @@ spatial_rep.plot_meshes([wing_camber_surface])
 
 wing_vlm_mesh_name = 'wing_vlm_mesh'
 sys_rep.add_output(wing_vlm_mesh_name, wing_camber_surface)
-wing_oml_mesh = am.vstack((np.asarray(wing_upper_surface_wireframe), np.asarray(wing_lower_surface_wireframe)))
+# wing_oml_mesh = am.vstack((np.asarray(wing_upper_surface_wireframe), np.asarray(wing_lower_surface_wireframe)))
+wing_oml_mesh = am.vstack((wing_upper_surface_wireframe, wing_lower_surface_wireframe))
 wing_oml_mesh_name = 'wing_oml_mesh'
 sys_rep.add_output(wing_oml_mesh_name, wing_oml_mesh)
 
