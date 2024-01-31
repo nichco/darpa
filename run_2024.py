@@ -2,11 +2,12 @@ import time
 from lsdo_geo.core.geometry.geometry_functions import import_geometry
 import m3l
 import numpy as np
-from python_csdl_backend import Simulator
+import python_csdl_backend
 import lsdo_geo as lg
 from lsdo_rotor import BEMParameters, evaluate_multiple_BEM_models, BEM
 from VAST import FluidProblem, VASTFluidSover, VASTNodalForces
 import caddee.api as cd
+from aframe import BeamMassModel, EBBeam, EBBeamForces
 from caddee.utils.helper_functions.geometry_helpers import (make_rotor_mesh, make_vlm_camber_mesh, make_1d_box_beam_mesh, 
                                                             compute_component_surface_area, BladeParameters)
 
@@ -36,6 +37,8 @@ pod = geometry.declare_component(component_name='pod', b_spline_search_names=['P
 # wing_le_left = wing.project(np.array([14.803, -29.986, 1.455]), plot=False)
 # wing_le_right = wing.project(np.array([14.803, 29.986, 1.455]), plot=False)
 # wing_le_center = wing.project(np.array([14, 0, 0.654]), plot=False)
+
+cg = wing.project(np.array([14.867, 0, 0.777]), plot=False)
 
 num_spanwise_vlm = 25
 num_chordwise_vlm = 8
@@ -87,10 +90,11 @@ tail_meshes = make_vlm_camber_mesh(
 # # geometry.plot_meshes([wing_beam.reshape((-1,3))])
 
 # wing beam mesh (helper)
+num_wing_beam = 15
 wing_beam_mesh = make_1d_box_beam_mesh(
     geometry=geometry,
     wing_component=wing,
-    num_beam_nodes=15,
+    num_beam_nodes=num_wing_beam,
     te_right=np.array([16.553, 29.986, 1.447]),
     te_left=np.array([16.553, -29.986, 1.447]),
     te_center=np.array([18.05, 0, 0.637]),
@@ -105,10 +109,11 @@ wing_beam_mesh = make_1d_box_beam_mesh(
     plot=False,
     )
 
+num_tail_beam = 9
 tail_beam_mesh = make_1d_box_beam_mesh(
     geometry=geometry,
     wing_component=htail,
-    num_beam_nodes=9,
+    num_beam_nodes=num_tail_beam,
     te_right=np.array([27.5, 5.5, 4.539]),
     te_left=np.array([27.5, -5.5, 4.539]),
     le_right=np.array([24.5, 5.5, 4.487]),
@@ -139,6 +144,98 @@ rfuse_beam_mesh = m3l.linspace(geometry.evaluate(rfuse_front), geometry.evaluate
 
 
 
+# rotor parameters
+num_radial = 20
+# prop_radius = system_model.create_input(name='prop_radius', val=6.5, dv_flag=False, lower=5.5, upper=7.5, scaler=1e-1)
+
+left_prop_mesh = make_rotor_mesh(
+    geometry=geometry,
+    num_radial=num_radial,
+    disk_component=ldisk,
+    origin=np.array([28., -7., 0.75]),
+    y1=np.array([28., -10.25, 0.75]),
+    y2=np.array([28., -3.75, 0.75]),
+    z1=np.array([28., -7., -2.5]),
+    z2=np.array([28., -7., 4.]),
+    create_disk_mesh=False,
+    plot=False,
+    # radius=prop_radius,
+)
+
+right_prop_mesh = make_rotor_mesh(
+    geometry=geometry,
+    num_radial=num_radial,
+    disk_component=rdisk,
+    origin=np.array([28., 7., 0.75]),
+    y1=np.array([28., 3.75, 0.75]),
+    y2=np.array([28., 10.25, 0.75]),
+    z1=np.array([28., 7., -2.5]),
+    z2=np.array([28., 7., 4.]),
+    create_disk_mesh=False,
+    plot=False,
+    # radius=prop_radius,
+)
+
+
+bem_left_rotor_parameters = BEMParameters(
+    num_blades=4,
+    num_radial=num_radial,
+    num_tangential=1,
+    airfoil='NACA_4412',
+    use_custom_airfoil_ml=False,
+    mesh_units='ft',
+)
+
+bem_right_rotor_parameters = BEMParameters(
+    num_blades=4,
+    num_radial=num_radial,
+    num_tangential=1,
+    airfoil='NACA_4412',
+    use_custom_airfoil_ml=False,
+    mesh_units='ft',
+)
+
+
+
+
+
+
+
+# Aframe dictionaries
+joints, bounds, beams = {}, {}, {}
+youngs_modulus = 69E9
+poisson_ratio = 0.33
+shear_modulus = youngs_modulus / (2 * (1 + poisson_ratio))
+material_density = 2780 
+
+beams['wing_beam'] = {'E': youngs_modulus, 'G': shear_modulus, 'rho': material_density, 'cs': 'box', 'nodes': list(range(num_wing_beam))}
+bounds['left_wing_root'] = {'beam': 'wing_beam','node': 5,'fdim': [1,1,1,0,1,1]} # with 15 nodes physically accurate
+bounds['right_wing_root'] = {'beam': 'wing_beam','node': 9,'fdim': [1,1,1,0,1,1]} # with 15 nodes physically accurate
+
+wing_beam_t_top = system_model.create_input(name='wing_beam_ttop' ,val=0.005 * np.ones((num_wing_beam, )), dv_flag=False, lower=0.0008, upper=0.02, scaler=10)
+wing_beam_t_bot = system_model.create_input(name='wing_beam_tbot' ,val=0.005 * np.ones((num_wing_beam, )), dv_flag=False, lower=0.0008, upper=0.02, scaler=10)
+wing_beam_tweb = system_model.create_input(name='wing_beam_tweb' ,val=0.005 * np.ones((num_wing_beam, )), dv_flag=False, lower=0.000508, upper=0.02, scaler=10)
+
+beam_mass_model = BeamMassModel(beams=beams, name='wing_beam_mass_model')
+wing_beam_mass_props = beam_mass_model.evaluate(beam_nodes=wing_beam_mesh.beam_nodes,
+                                        width=wing_beam_mesh.width, height=wing_beam_mesh.height, 
+                                        t_top=wing_beam_t_top, t_bot=wing_beam_t_bot ,t_web=wing_beam_tweb)
+
+system_model.register_output(wing_beam_mass_props)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 cruise = True
 plus_3g = True
 
@@ -153,41 +250,69 @@ if cruise:
     cruise_h = system_model.create_input('cruise_altitude', val=1000)
     cruise_range = system_model.create_input('cruise_range', val=60000)
     cruise_pitch = system_model.create_input('cruise_pitch', val=np.deg2rad(0), dv_flag=True, lower=np.deg2rad(-5), upper=np.deg2rad(5), scaler=10)
-
     cruise_ac_states, cruise_atmos = cruise_condition.evaluate(mach_number=cruise_M, pitch_angle=cruise_pitch, altitude=cruise_h, cruise_range=cruise_range)
 
     system_model.register_output(cruise_ac_states)
     system_model.register_output(cruise_atmos)
 
-    # cruise_bem = BEM(
-    #     name='cruise_bem',
-    #     num_nodes=1, 
-    #     BEM_parameters=bem_pusher_rotor_parameters,
-    #     rotation_direction='ignore',
+    left_cruise_bem = BEM(
+        name='cruise_bem',
+        num_nodes=1, 
+        BEM_parameters=bem_left_rotor_parameters,
+        rotation_direction='ignore',
+    )
+    left_cruise_rpm = system_model.create_input('cruise_rpm', val=2000, dv_flag=True, lower=600, upper=2500, scaler=1e-3)
+    left_cruise_chord_cp = system_model.create_input('left_cruise_chord_cp', val=np.linspace(0.2, 0.1, num_radial))
+    left_cruise_blade_twist_cp = system_model.create_input('left_cruise_blade_twist_cp', val=np.linspace(np.deg2rad(45), np.deg2rad(10), num_radial))
+    left_cruise_bem_outputs = left_cruise_bem.evaluate(ac_states=cruise_ac_states, rpm=left_cruise_rpm, rotor_radius=left_prop_mesh.radius, thrust_vector=left_prop_mesh.thrust_vector,
+                                                    thrust_origin=left_prop_mesh.thrust_origin, atmosphere=cruise_atmos, blade_chord_cp=left_cruise_chord_cp, blade_twist_cp=left_cruise_blade_twist_cp)
+    system_model.register_output(left_cruise_bem_outputs)
+
+
+
+    vlm_model = VASTFluidSover(
+        name='cruise_vlm_model',
+        surface_names=[
+            'cruise_wing_mesh',
+            'cruise_tail_mesh',
+        ],
+        surface_shapes=[
+            (1, ) + wing_meshes.vlm_mesh.shape[1:],
+            (1, ) + tail_meshes.vlm_mesh.shape[1:],
+        ],
+        fluid_problem=FluidProblem(solver_option='VLM', problem_type='fixed_wake', symmetry=True),
+        mesh_unit='ft',
+        cl0=[0., 0., 0., 0.]
+    )
+
+    vlm_outputs = vlm_model.evaluate(
+        atmosphere=cruise_atmos,
+        ac_states=cruise_ac_states,
+        meshes=[wing_meshes.vlm_mesh, tail_meshes.vlm_mesh],
+        # deflections=[None, None],
+        # wing_AR=wing_AR,
+        eval_pt=geometry.evaluate(cg),
+    )
+    system_model.register_output(vlm_outputs)
+
+
+
+    # cruise_trim_variables = cruise_condition.assemble_trim_residual(
+    #     mass_properties=[motor_mass_properties, battery_mass_properties, wing_beam_mass_props, m4_mass_properties],
+    #     aero_propulsive_outputs=[vlm_outputs, cruise_bem_outputs, drag_build_up_outputs],
+    #     ac_states=cruise_ac_states,
+    #     load_factor=1.,
+    #     ref_pt=cg,
     # )
-    # cruise_rpm = system_model.create_input('cruise_rpm', val=2000, dv_flag=True, lower=600, upper=2500, scaler=1e-3)
-    # cruise_bem_outputs = cruise_bem.evaluate(ac_states=cruise_ac_states, rpm=cruise_rpm, rotor_radius=pp_mesh.radius, thrust_vector=pp_mesh.thrust_vector,
-    #                                                 thrust_origin=pp_mesh.thrust_origin, atmosphere=cruise_atmos, blade_chord_cp=pp_mesh.chord_cps, blade_twist_cp=pp_mesh.twist_cps, 
-    #                                                 cg_vec=m4_mass_properties.cg_vector, reference_point=m4_mass_properties.cg_vector)
-    # system_model.register_output(cruise_bem_outputs)
+    # system_model.register_output(cruise_trim_variables)
+    # system_model.add_constraint(cruise_trim_variables.accelerations, equals=0, scaler=5.)
 
 
 
-    # vlm_model = VASTFluidSover(
-    #     name='cruise_vlm_model',
-    #     surface_names=[
-    #         'cruise_wing_mesh',
-    #         'cruise_tail_mesh',
-    #         'cruise_vtail_mesh',
-    #         'cruise_fuselage_mesh',
-    #     ],
-    #     surface_shapes=[
-    #         (1, ) + wing_meshes.vlm_mesh.shape[1:],
-    #         (1, ) + tail_meshes.vlm_mesh.shape[1:],
-    #         (1, ) + vtail_meshes.vlm_mesh.shape[1:],
-    #         (1, ) + fuesleage_mesh.shape,
-    #     ],
-    #     fluid_problem=FluidProblem(solver_option='VLM', problem_type='fixed_wake', symmetry=True),
-    #     mesh_unit='ft',
-    #     cl0=[0., 0., 0., 0.]
-    # )
+
+
+
+
+caddee_csdl_model = system_model.assemble_csdl()
+sim = python_csdl_backend.Simulator(caddee_csdl_model, analytics=True)
+#sim.run()
