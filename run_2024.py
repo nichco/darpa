@@ -10,7 +10,15 @@ import caddee.api as cd
 from aframe import BeamMassModel, EBBeam, EBBeamForces
 from caddee.utils.helper_functions.geometry_helpers import (make_rotor_mesh, make_vlm_camber_mesh, make_1d_box_beam_mesh, 
                                                             compute_component_surface_area, BladeParameters)
+from darpa.payload import Payload
+from darpa.battery import Battery
+from darpa.motor import Motor
+from darpa.fuselage import Fuselage
+from darpa.heleeos import HELEEOS
+from darpa.pod import Pod
 
+import sys
+sys.setrecursionlimit(100000000)
 
 caddee = cd.CADDEE()
 geometry = lg.import_geometry('darpa4.stp', parallelize=True)
@@ -229,6 +237,12 @@ system_model.register_output(wing_beam_mass_props)
 
 
 
+total_mass_props_model = cd.TotalMassPropertiesM3L(name=f"total_mass_properties_model")
+total_mass_props = total_mass_props_model.evaluate(component_mass_properties=[wing_beam_mass_props])
+system_model.register_output(total_mass_props)
+# system_model.add_objective(total_mass_props.mass, scaler=1e-3)
+
+
 
 
 
@@ -255,21 +269,40 @@ if cruise:
     system_model.register_output(cruise_ac_states)
     system_model.register_output(cruise_atmos)
 
+
+
+
+
     left_cruise_bem = BEM(
-        name='cruise_bem',
+        name='left_cruise_bem',
         num_nodes=1, 
         BEM_parameters=bem_left_rotor_parameters,
         rotation_direction='ignore',
     )
-    left_cruise_rpm = system_model.create_input('cruise_rpm', val=2000, dv_flag=True, lower=600, upper=2500, scaler=1e-3)
-    left_cruise_chord_cp = system_model.create_input('left_cruise_chord_cp', val=np.linspace(0.2, 0.1, num_radial))
-    left_cruise_blade_twist_cp = system_model.create_input('left_cruise_blade_twist_cp', val=np.linspace(np.deg2rad(45), np.deg2rad(10), num_radial))
+    left_cruise_rpm = system_model.create_input('left_cruise_rpm', val=2000, dv_flag=True, lower=600, upper=2500, scaler=1e-3)
+    left_cruise_chord_cp = system_model.create_input('left_cruise_chord_cp', val=np.linspace(0.2, 0.1, 4))
+    left_cruise_blade_twist_cp = system_model.create_input('left_cruise_blade_twist_cp', val=np.linspace(np.deg2rad(45), np.deg2rad(10), 4))
     left_cruise_bem_outputs = left_cruise_bem.evaluate(ac_states=cruise_ac_states, rpm=left_cruise_rpm, rotor_radius=left_prop_mesh.radius, thrust_vector=left_prop_mesh.thrust_vector,
                                                     thrust_origin=left_prop_mesh.thrust_origin, atmosphere=cruise_atmos, blade_chord_cp=left_cruise_chord_cp, blade_twist_cp=left_cruise_blade_twist_cp)
     system_model.register_output(left_cruise_bem_outputs)
 
+    right_cruise_bem = BEM(
+        name='right_cruise_bem',
+        num_nodes=1, 
+        BEM_parameters=bem_right_rotor_parameters,
+        rotation_direction='ignore',
+    )
+    right_cruise_rpm = system_model.create_input('right_cruise_rpm', val=2000, dv_flag=True, lower=600, upper=2500, scaler=1e-3)
+    right_cruise_chord_cp = system_model.create_input('right_cruise_chord_cp', val=np.linspace(0.2, 0.1, 4))
+    right_cruise_blade_twist_cp = system_model.create_input('right_cruise_blade_twist_cp', val=np.linspace(np.deg2rad(45), np.deg2rad(10), 4))
+    right_cruise_bem_outputs = right_cruise_bem.evaluate(ac_states=cruise_ac_states, rpm=right_cruise_rpm, rotor_radius=right_prop_mesh.radius, thrust_vector=right_prop_mesh.thrust_vector,
+                                                    thrust_origin=right_prop_mesh.thrust_origin, atmosphere=cruise_atmos, blade_chord_cp=right_cruise_chord_cp, blade_twist_cp=right_cruise_blade_twist_cp)
+    system_model.register_output(right_cruise_bem_outputs)
 
 
+
+
+    # VAST VLM model
     vlm_model = VASTFluidSover(
         name='cruise_vlm_model',
         surface_names=[
@@ -282,7 +315,7 @@ if cruise:
         ],
         fluid_problem=FluidProblem(solver_option='VLM', problem_type='fixed_wake', symmetry=True),
         mesh_unit='ft',
-        cl0=[0., 0., 0., 0.]
+        cl0=[0., 0.,]
     )
 
     vlm_outputs = vlm_model.evaluate(
@@ -295,14 +328,65 @@ if cruise:
     )
     system_model.register_output(vlm_outputs)
 
+    # VAST nodal forces
+    vlm_force_mapping_model = VASTNodalForces(
+        name='vast_cruise_nodal_forces',
+        surface_names=[
+            f'cruise_wing_mesh',
+            f'cruise_tail_mesh',
+        ],
+        surface_shapes=[
+            (1, ) + wing_meshes.vlm_mesh.shape[1:],
+            (1, ) + tail_meshes.vlm_mesh.shape[1:],
+        ],
+        initial_meshes=[
+            wing_meshes.vlm_mesh,
+            tail_meshes.vlm_mesh
+        ]
+    )
 
 
+    # oml_forces = vlm_force_mapping_model.evaluate(vlm_forces=vlm_outputs.panel_forces, nodal_force_meshes=[wing_meshes.oml_mesh, tail_meshes.oml_mesh])
+    # wing_oml_forces = oml_forces[0]
+    # tail_oml_forces = oml_forces[1]
+
+    # system_model.register_output(wing_oml_forces)
+    # system_model.register_output(tail_oml_forces)
+
+
+
+
+    # # beam model
+    # beam_force_map_model = EBBeamForces(name='eb_beam_force_map_cruise', beams=beams, exclude_middle=True)
+
+    # structural_wing_mesh_forces_cruise = beam_force_map_model.evaluate(
+    #     beam_mesh=wing_beam_mesh.beam_nodes,
+    #     nodal_forces=wing_oml_forces,
+    #     nodal_forces_mesh=wing_meshes.oml_mesh
+    # )
+
+    # beam_displacement_model = EBBeam(
+    #     name='eb_beam_cruise',
+    #     beams=beams,
+    #     bounds=bounds,
+    #     joints=joints,
+    #     mesh_units='ft',
+    # )
+
+    # cruise_eb_beam_outputs = beam_displacement_model.evaluate(beam_mesh=wing_beam_mesh, 
+    #                                                            t_top=wing_beam_t_top, 
+    #                                                            t_bot=wing_beam_t_bot, 
+    #                                                            t_web=wing_beam_tweb, 
+    #                                                            forces=structural_wing_mesh_forces_cruise)
+
+
+    # # trim computation
     # cruise_trim_variables = cruise_condition.assemble_trim_residual(
-    #     mass_properties=[motor_mass_properties, battery_mass_properties, wing_beam_mass_props, m4_mass_properties],
-    #     aero_propulsive_outputs=[vlm_outputs, cruise_bem_outputs, drag_build_up_outputs],
+    #     mass_properties=[wing_beam_mass_props],
+    #     aero_propulsive_outputs=[vlm_outputs, left_cruise_bem_outputs, right_cruise_bem_outputs],
     #     ac_states=cruise_ac_states,
     #     load_factor=1.,
-    #     ref_pt=cg,
+    #     ref_pt=geometry.evaluate(cg),
     # )
     # system_model.register_output(cruise_trim_variables)
     # system_model.add_constraint(cruise_trim_variables.accelerations, equals=0, scaler=5.)
@@ -312,7 +396,7 @@ if cruise:
 
 
 
-
 caddee_csdl_model = system_model.assemble_csdl()
+print('sldkjfnsdl')
 sim = python_csdl_backend.Simulator(caddee_csdl_model, analytics=True)
-#sim.run()
+sim.run()

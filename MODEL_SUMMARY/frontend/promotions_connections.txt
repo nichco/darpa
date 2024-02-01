@@ -1,0 +1,1238 @@
+(id:389)              source     in     darpa4_coefficients
+ <=c=(id:392)         connection dec    darpa4_coefficients_matvec_operation_agnsb.x
+ <=c=(id:459)         connection dec    darpa4_coefficients_matvec_operation_aMXcn.x
+ <=c=(id:440)         connection dec    darpa4_coefficients_matvec_operation_nD9fL.x
+ <=c=(id:507)         connection dec    darpa4_coefficients_matvec_operation_lOVr7.x
+ <=c=(id:394)         connection dec    darpa4_coefficients_matvec_operation_sxMU8.x
+ <=c=(id:461)         connection dec    darpa4_coefficients_matvec_operation_8h2Fr.x
+ <=c=(id:463)         connection dec    darpa4_coefficients_matvec_operation_fgc5D.x
+ <=c=(id:424)         connection dec    darpa4_coefficients_matvec_operation_B0Nfh.x
+ <=c=(id:426)         connection dec    darpa4_coefficients_matvec_operation_PQaeW.x
+ <=c=(id:406)         connection dec    darpa4_coefficients_matvec_operation_1cN1G.x
+ <=c=(id:428)         connection dec    darpa4_coefficients_matvec_operation_NxIp8.x
+ <=c=(id:430)         connection dec    darpa4_coefficients_matvec_operation_6b6Gf.x
+ <=c=(id:501)         connection dec    darpa4_coefficients_matvec_operation_yti5l.x
+ <=c=(id:387)         connection dec    darpa4_coefficients_matvec_operation_8F1cW.x
+ <=c=(id:503)         connection dec    darpa4_coefficients_matvec_operation_DkWw9.x
+ <=c=(id:390)         connection dec    darpa4_coefficients_matvec_operation_1ksry.x
+ <=c=(id:457)         connection dec    darpa4_coefficients_matvec_operation_4NwqH.x
+ <=c=(id:469)         connection dec    darpa4_coefficients_matvec_operation_4a6jQ.x
+ <=c=(id:505)         connection dec    darpa4_coefficients_matvec_operation_XPQCD.x
+
+(id:396)              source     in     262
+ <=c=(id:1612)        connection dec    left_cruise_bem.eval_point
+
+(id:397)              source     in     263
+ <=c=(id:1615)        connection dec    left_cruise_bem.reference_point
+
+(id:398)              source     in     in_plane_1
+ <=c=(id:1621)        connection dec    left_cruise_bem.in_plane_1
+ <=c=(id:2998)        connection dec    right_cruise_bem.in_plane_1
+
+(id:399)              source     in     in_plane_2
+ <=c=(id:3001)        connection dec    right_cruise_bem.in_plane_2
+ <=c=(id:1624)        connection dec    left_cruise_bem.in_plane_2
+
+(id:412)              source     in     x2
+ <=c=(id:409)         connection dec    177_division_x2_Jp0Nd_operation.x2
+ <=c=(id:443)         connection dec    208_division_x2_5DDNl_operation.x2
+
+(id:432)              source     in     284
+ <=c=(id:2989)        connection dec    right_cruise_bem.eval_point
+
+(id:433)              source     in     285
+ <=c=(id:2992)        connection dec    right_cruise_bem.reference_point
+
+(id:509)              source     in     wing_beam_ttop
+ <=c=(id:645)         connection dec    wing_beam_mass_model.wing_beam_ttop
+
+(id:510)              source     in     wing_beam_tbot
+ <=c=(id:644)         connection dec    wing_beam_mass_model.wing_beam_tbot
+
+(id:511)              source     in     wing_beam_tweb
+ <=c=(id:643)         connection dec    wing_beam_mass_model.wing_beam_tweb
+
+(id:512)              source     in     cruise_mach
+ <=c=(id:1425)        connection dec    steady_cruise.mach_number
+
+(id:513)              source     in     cruise_altitude
+ <=c=(id:1499)        connection dec    steady_cruise.atmosphere_model.altitude
+
+(id:514)              source     in     cruise_range
+ <=c=(id:1426)        connection dec    steady_cruise.cruise_range
+
+(id:515)              source     in     cruise_pitch
+ <=c=(id:1422)        connection dec    steady_cruise.pitch_angle
+
+(id:516)              source     in     left_cruise_rpm
+ <=c=(id:1596)        connection dec    left_cruise_bem.rpm
+
+(id:517)              source     in     left_cruise_chord_cp
+ <=c=(id:1617)        connection dec    left_cruise_bem.chord_cp
+
+(id:518)              source     in     left_cruise_blade_twist_cp
+ <=c=(id:1619)        connection dec    left_cruise_bem.twist_cp
+
+(id:519)              source     in     right_cruise_rpm
+ <=c=(id:2973)        connection dec    right_cruise_bem.rpm
+
+(id:520)              source     in     right_cruise_chord_cp
+ <=c=(id:2994)        connection dec    right_cruise_bem.chord_cp
+
+(id:521)              source     in     right_cruise_blade_twist_cp
+ <=c=(id:2996)        connection dec    right_cruise_bem.twist_cp
+
+(id:423)              source     out    181_minus_185_operation_C2074.186
+ <=c=(id:413)         connection dec    186_cross_177_mXm5Y_operation.x1
+
+(id:476)              source     out    64_plus_65_UVEqS_operation.66
+ <=c=(id:467)         connection dec    66_reshape_operation_AmEOa.x
+
+(id:917)              source     out    wing_beam_mass_model.mass
+ <=c=(id:1373)        connection dec    total_mass_properties_model.wing_beam_mass_model_mass
+ <---(id:1075)        promotion  dec    wing_beam_mass_model.mass_post_process_model.mass
+
+(id:913)              source     out    wing_beam_mass_model.wing_beam_element_13_A
+ <---(id:1064)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_13_A
+
+(id:796)              source     out    wing_beam_mass_model.wing_beam_element_0_A
+ <---(id:921)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_0_A
+
+(id:805)              source     out    wing_beam_mass_model.wing_beam_element_1_A
+ <---(id:932)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_1_A
+
+(id:814)              source     out    wing_beam_mass_model.wing_beam_element_2_A
+ <---(id:943)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_2_A
+
+(id:823)              source     out    wing_beam_mass_model.wing_beam_element_3_A
+ <---(id:954)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_3_A
+
+(id:832)              source     out    wing_beam_mass_model.wing_beam_element_4_A
+ <---(id:965)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_4_A
+
+(id:841)              source     out    wing_beam_mass_model.wing_beam_element_5_A
+ <---(id:976)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_5_A
+
+(id:850)              source     out    wing_beam_mass_model.wing_beam_element_6_A
+ <---(id:987)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_6_A
+
+(id:859)              source     out    wing_beam_mass_model.wing_beam_element_7_A
+ <---(id:998)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_7_A
+
+(id:868)              source     out    wing_beam_mass_model.wing_beam_element_8_A
+ <---(id:1009)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_8_A
+
+(id:877)              source     out    wing_beam_mass_model.wing_beam_element_9_A
+ <---(id:1020)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_9_A
+
+(id:886)              source     out    wing_beam_mass_model.wing_beam_element_10_A
+ <---(id:1031)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_10_A
+
+(id:895)              source     out    wing_beam_mass_model.wing_beam_element_11_A
+ <---(id:1042)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_11_A
+
+(id:904)              source     out    wing_beam_mass_model.wing_beam_element_12_A
+ <---(id:1053)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_12_A
+
+(id:912)              source     out    wing_beam_mass_model.wing_beam_element_13L
+ <---(id:1065)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_13L
+
+(id:909)              source     out    wing_beam_mass_model.wing_beam_element_13node_b
+ <---(id:1069)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_13node_b
+
+(id:907)              source     out    wing_beam_mass_model.wing_beam_element_13node_a
+ <---(id:1068)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_13node_a
+
+(id:903)              source     out    wing_beam_mass_model.wing_beam_element_12L
+ <---(id:1054)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_12L
+
+(id:900)              source     out    wing_beam_mass_model.wing_beam_element_12node_b
+ <---(id:1058)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_12node_b
+
+(id:898)              source     out    wing_beam_mass_model.wing_beam_element_12node_a
+ <---(id:1057)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_12node_a
+
+(id:894)              source     out    wing_beam_mass_model.wing_beam_element_11L
+ <---(id:1043)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_11L
+
+(id:891)              source     out    wing_beam_mass_model.wing_beam_element_11node_b
+ <---(id:1047)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_11node_b
+
+(id:889)              source     out    wing_beam_mass_model.wing_beam_element_11node_a
+ <---(id:1046)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_11node_a
+
+(id:885)              source     out    wing_beam_mass_model.wing_beam_element_10L
+ <---(id:1032)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_10L
+
+(id:882)              source     out    wing_beam_mass_model.wing_beam_element_10node_b
+ <---(id:1036)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_10node_b
+
+(id:880)              source     out    wing_beam_mass_model.wing_beam_element_10node_a
+ <---(id:1035)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_10node_a
+
+(id:876)              source     out    wing_beam_mass_model.wing_beam_element_9L
+ <---(id:1021)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_9L
+
+(id:873)              source     out    wing_beam_mass_model.wing_beam_element_9node_b
+ <---(id:1025)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_9node_b
+
+(id:871)              source     out    wing_beam_mass_model.wing_beam_element_9node_a
+ <---(id:1024)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_9node_a
+
+(id:867)              source     out    wing_beam_mass_model.wing_beam_element_8L
+ <---(id:1010)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_8L
+
+(id:864)              source     out    wing_beam_mass_model.wing_beam_element_8node_b
+ <---(id:1014)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_8node_b
+
+(id:862)              source     out    wing_beam_mass_model.wing_beam_element_8node_a
+ <---(id:1013)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_8node_a
+
+(id:858)              source     out    wing_beam_mass_model.wing_beam_element_7L
+ <---(id:999)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_7L
+
+(id:855)              source     out    wing_beam_mass_model.wing_beam_element_7node_b
+ <---(id:1003)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_7node_b
+
+(id:853)              source     out    wing_beam_mass_model.wing_beam_element_7node_a
+ <---(id:1002)        promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_7node_a
+
+(id:849)              source     out    wing_beam_mass_model.wing_beam_element_6L
+ <---(id:988)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_6L
+
+(id:846)              source     out    wing_beam_mass_model.wing_beam_element_6node_b
+ <---(id:992)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_6node_b
+
+(id:844)              source     out    wing_beam_mass_model.wing_beam_element_6node_a
+ <---(id:991)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_6node_a
+
+(id:840)              source     out    wing_beam_mass_model.wing_beam_element_5L
+ <---(id:977)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_5L
+
+(id:837)              source     out    wing_beam_mass_model.wing_beam_element_5node_b
+ <---(id:981)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_5node_b
+
+(id:835)              source     out    wing_beam_mass_model.wing_beam_element_5node_a
+ <---(id:980)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_5node_a
+
+(id:831)              source     out    wing_beam_mass_model.wing_beam_element_4L
+ <---(id:966)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_4L
+
+(id:828)              source     out    wing_beam_mass_model.wing_beam_element_4node_b
+ <---(id:970)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_4node_b
+
+(id:826)              source     out    wing_beam_mass_model.wing_beam_element_4node_a
+ <---(id:969)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_4node_a
+
+(id:822)              source     out    wing_beam_mass_model.wing_beam_element_3L
+ <---(id:955)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_3L
+
+(id:819)              source     out    wing_beam_mass_model.wing_beam_element_3node_b
+ <---(id:959)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_3node_b
+
+(id:817)              source     out    wing_beam_mass_model.wing_beam_element_3node_a
+ <---(id:958)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_3node_a
+
+(id:813)              source     out    wing_beam_mass_model.wing_beam_element_2L
+ <---(id:944)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_2L
+
+(id:810)              source     out    wing_beam_mass_model.wing_beam_element_2node_b
+ <---(id:948)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_2node_b
+
+(id:808)              source     out    wing_beam_mass_model.wing_beam_element_2node_a
+ <---(id:947)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_2node_a
+
+(id:804)              source     out    wing_beam_mass_model.wing_beam_element_1L
+ <---(id:933)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_1L
+
+(id:801)              source     out    wing_beam_mass_model.wing_beam_element_1node_b
+ <---(id:937)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_1node_b
+
+(id:799)              source     out    wing_beam_mass_model.wing_beam_element_1node_a
+ <---(id:936)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_1node_a
+
+(id:795)              source     out    wing_beam_mass_model.wing_beam_element_0L
+ <---(id:922)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_0L
+
+(id:792)              source     out    wing_beam_mass_model.wing_beam_element_0node_b
+ <---(id:926)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_0node_b
+
+(id:790)              source     out    wing_beam_mass_model.wing_beam_element_0node_a
+ <---(id:925)         promotion  dec    wing_beam_mass_model.mass_post_process_model.wing_beam_element_0node_a
+
+(id:1358)             source     out    wing_beam_mass_model.mass_post_process_model_2.inertia_tensor
+ <=c=(id:1378)        connection dec    total_mass_properties_model.wing_beam_mass_model_inertia_tensor
+
+(id:1078)             source     out    wing_beam_mass_model.mass_post_process_model.cg_vector
+ <=c=(id:1374)        connection dec    total_mass_properties_model.wing_beam_mass_model_cg_vector
+
+(id:1071)             source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_13r_cg
+ <---(id:1336)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_13r_cg
+
+(id:1060)             source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_12r_cg
+ <---(id:1317)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_12r_cg
+
+(id:1049)             source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_11r_cg
+ <---(id:1298)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_11r_cg
+
+(id:1038)             source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_10r_cg
+ <---(id:1279)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_10r_cg
+
+(id:1027)             source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_9r_cg
+ <---(id:1260)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_9r_cg
+
+(id:1016)             source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_8r_cg
+ <---(id:1241)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_8r_cg
+
+(id:1005)             source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_7r_cg
+ <---(id:1222)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_7r_cg
+
+(id:994)              source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_6r_cg
+ <---(id:1203)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_6r_cg
+
+(id:983)              source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_5r_cg
+ <---(id:1184)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_5r_cg
+
+(id:972)              source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_4r_cg
+ <---(id:1165)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_4r_cg
+
+(id:961)              source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_3r_cg
+ <---(id:1146)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_3r_cg
+
+(id:950)              source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_2r_cg
+ <---(id:1127)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_2r_cg
+
+(id:939)              source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_1r_cg
+ <---(id:1108)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_1r_cg
+
+(id:928)              source     out    wing_beam_mass_model.mass_post_process_model.wing_beam_element_0r_cg
+ <---(id:1089)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.wing_beam_element_0r_cg
+
+(id:919)              source     out    wing_beam_mass_model.mass_post_process_model.dup_m_vec
+ <---(id:1087)        promotion  dec    wing_beam_mass_model.mass_post_process_model_2.dup_m_vec
+
+(id:361)              source     out    101_times_scaler_operation_BmJU0.102
+ <=c=(id:354)         connection dec    norm_operation_102_IOtSU.x
+
+(id:425)              source     out    darpa4_coefficients_matvec_operation_B0Nfh.172
+ <=c=(id:418)         connection dec    172_minus_176_operation_R1Qyx.x1
+
+(id:448)              source     out    217_cross_208_aTvdf_operation.224
+ <=c=(id:436)         connection dec    224_division_225_sGhgy_operation.x1
+ <=c=(id:449)         connection dec    norm_operation_224_wy0VT.x
+
+(id:478)              source     out    28_matvec_operation_tLoAL.30
+ <=c=(id:471)         connection dec    30_plus_31_ePElE_operation.x1
+
+(id:1461)             source     out    steady_cruise.psi
+ <=c=(id:1594)        connection dec    left_cruise_bem.psi
+ <=c=(id:4349)        connection dec    cruise_vlm_model.psi
+ <=c=(id:2971)        connection dec    right_cruise_bem.psi
+
+(id:1460)             source     out    steady_cruise.theta
+ <=c=(id:1590)        connection dec    left_cruise_bem.theta
+ <=c=(id:2967)        connection dec    right_cruise_bem.theta
+ <=c=(id:4347)        connection dec    cruise_vlm_model.theta
+
+(id:1459)             source     out    steady_cruise.phi
+ <=c=(id:2969)        connection dec    right_cruise_bem.phi
+ <=c=(id:1592)        connection dec    left_cruise_bem.phi
+ <=c=(id:4345)        connection dec    cruise_vlm_model.phi
+
+(id:1458)             source     out    steady_cruise.r
+ <=c=(id:2965)        connection dec    right_cruise_bem.r
+ <=c=(id:1588)        connection dec    left_cruise_bem.r
+ <=c=(id:4343)        connection dec    cruise_vlm_model.r
+
+(id:1457)             source     out    steady_cruise.q
+ <=c=(id:4341)        connection dec    cruise_vlm_model.q
+ <=c=(id:2963)        connection dec    right_cruise_bem.q
+ <=c=(id:1586)        connection dec    left_cruise_bem.q
+
+(id:1456)             source     out    steady_cruise.p
+ <=c=(id:1584)        connection dec    left_cruise_bem.p
+ <=c=(id:4339)        connection dec    cruise_vlm_model.p
+ <=c=(id:2961)        connection dec    right_cruise_bem.p
+
+(id:1455)             source     out    steady_cruise.w
+ <=c=(id:2959)        connection dec    right_cruise_bem.w
+ <=c=(id:1582)        connection dec    left_cruise_bem.w
+ <=c=(id:4337)        connection dec    cruise_vlm_model.w
+
+(id:1454)             source     out    steady_cruise.v
+ <=c=(id:1580)        connection dec    left_cruise_bem.v
+ <=c=(id:4335)        connection dec    cruise_vlm_model.v
+ <=c=(id:2957)        connection dec    right_cruise_bem.v
+
+(id:1453)             source     out    steady_cruise.u
+ <=c=(id:1578)        connection dec    left_cruise_bem.u
+ <=c=(id:4333)        connection dec    cruise_vlm_model.u
+ <=c=(id:2955)        connection dec    right_cruise_bem.u
+
+(id:1577)             source     out    steady_cruise.atmosphere_model.speed_of_sound
+ <=c=(id:2979)        connection dec    right_cruise_bem.speed_of_sound
+ <=c=(id:1602)        connection dec    left_cruise_bem.speed_of_sound
+ <---(id:1424)        promotion  dec    steady_cruise.speed_of_sound
+
+(id:1575)             source     out    steady_cruise.atmosphere_model.dynamic_viscosity
+ <=c=(id:1600)        connection dec    left_cruise_bem.dynamic_viscosity
+ <=c=(id:2977)        connection dec    right_cruise_bem.dynamic_viscosity
+
+(id:1567)             source     out    steady_cruise.atmosphere_model.density
+ <=c=(id:2975)        connection dec    right_cruise_bem.density
+ <=c=(id:18436)       connection dec    cruise_vlm_model.density
+ <=c=(id:1598)        connection dec    left_cruise_bem.density
+
+(id:364)              source     out    83_plus_84_BVjmr_operation.85
+ <=c=(id:356)         connection dec    85_reshape_operation_4mUSO.x
+
+(id:427)              source     out    darpa4_coefficients_matvec_operation_PQaeW.176
+ <=c=(id:419)         connection dec    172_minus_176_operation_R1Qyx.x2
+
+(id:450)              source     out    norm_operation_224_wy0VT.225
+ <=c=(id:437)         connection dec    224_division_225_sGhgy_operation.x2
+
+(id:480)              source     out    29_matvec_operation_Xm0E8.31
+ <=c=(id:472)         connection dec    30_plus_31_ePElE_operation.x2
+
+(id:353)              source     out    norm_operation_89_ieSot.90
+ <=c=(id:525)         connection dec    wing_beam_mass_model.wing_beam_width
+
+(id:367)              source     out    75_minus_80_operation_ESa7X.88
+ <=c=(id:358)         connection dec    88_times_scaler_operation_rMbcq.x1
+
+(id:429)              source     out    darpa4_coefficients_matvec_operation_NxIp8.181
+ <=c=(id:421)         connection dec    181_minus_185_operation_C2074.x1
+
+(id:482)              source     out    62_matvec_operation_THWDC.64
+ <=c=(id:474)         connection dec    64_plus_65_UVEqS_operation.x1
+
+(id:370)              source     out    97_minus_100_operation_obloy.101
+ <=c=(id:360)         connection dec    101_times_scaler_operation_BmJU0.x1
+
+(id:453)              source     out    203_minus_207_operation_rdF4R.208
+ <=c=(id:447)         connection dec    217_cross_208_aTvdf_operation.x2
+ <=c=(id:442)         connection dec    208_division_x2_5DDNl_operation.x1
+
+(id:431)              source     out    darpa4_coefficients_matvec_operation_6b6Gf.185
+ <=c=(id:422)         connection dec    181_minus_185_operation_C2074.x2
+
+(id:484)              source     out    63_matvec_operation_ANrBi.65
+ <=c=(id:475)         connection dec    64_plus_65_UVEqS_operation.x2
+
+(id:456)              source     out    212_minus_216_operation_hdg9T.217
+ <=c=(id:446)         connection dec    217_cross_208_aTvdf_operation.x1
+
+(id:372)              source     out    81_matvec_operation_Nkcmg.83
+ <=c=(id:362)         connection dec    83_plus_84_BVjmr_operation.x1
+
+(id:3003)             source     out    right_cruise_bem.in_plane_2_exp
+ <=c=(id:3636)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.in_plane_2
+
+(id:3000)             source     out    right_cruise_bem.in_plane_1_exp
+ <=c=(id:3635)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.in_plane_1
+
+(id:2997)             source     out    right_cruise_bem.twist_cp_exp
+ <=c=(id:3373)        connection dec    right_cruise_bem.right_cruise_bem.twist_cp
+
+(id:2995)             source     out    right_cruise_bem.chord_cp_exp
+ <=c=(id:3370)        connection dec    right_cruise_bem.right_cruise_bem.chord_cp
+
+(id:2993)             source     out    right_cruise_bem.reference_point_exp
+ <=c=(id:3476)        connection dec    right_cruise_bem.right_cruise_bem.reference_point
+
+(id:2991)             source     out    right_cruise_bem.eval_point_exp
+ <=c=(id:3639)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.eval_point
+
+(id:2988)             source     out    right_cruise_bem.to_exp
+ <=c=(id:3368)        connection dec    right_cruise_bem.right_cruise_bem.to
+
+(id:2985)             source     out    right_cruise_bem.tv_exp
+ <=c=(id:3375)        connection dec    right_cruise_bem.right_cruise_bem.tv
+
+(id:2982)             source     out    right_cruise_bem.R_exp
+ <=c=(id:3366)        connection dec    right_cruise_bem.right_cruise_bem.R
+
+(id:2980)             source     out    right_cruise_bem.speed_of_sound_exp
+ <=c=(id:3466)        connection dec    right_cruise_bem.right_cruise_bem.speed_of_sound
+
+(id:2978)             source     out    right_cruise_bem.dynamic_viscosity_exp
+ <=c=(id:3464)        connection dec    right_cruise_bem.right_cruise_bem.dynamic_viscosity
+
+(id:2976)             source     out    right_cruise_bem.density_exp
+ <=c=(id:3462)        connection dec    right_cruise_bem.right_cruise_bem.density
+     <---(id:4128)    promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model.density
+
+(id:2974)             source     out    right_cruise_bem.rpm_exp
+ <=c=(id:3641)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.rpm
+
+(id:2972)             source     out    right_cruise_bem.psi_exp
+ <=c=(id:3013)        connection dec    right_cruise_bem.right_cruise_bem.psi
+
+(id:2970)             source     out    right_cruise_bem.phi_exp
+ <=c=(id:3011)        connection dec    right_cruise_bem.right_cruise_bem.phi
+
+(id:2968)             source     out    right_cruise_bem.theta_exp
+ <=c=(id:3012)        connection dec    right_cruise_bem.right_cruise_bem.theta
+
+(id:2966)             source     out    right_cruise_bem.r_exp
+ <=c=(id:3649)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.r
+
+(id:2964)             source     out    right_cruise_bem.q_exp
+ <=c=(id:3648)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.q
+
+(id:2962)             source     out    right_cruise_bem.p_exp
+ <=c=(id:3647)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.p
+
+(id:2960)             source     out    right_cruise_bem.w_exp
+ <=c=(id:3645)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.w
+
+(id:2958)             source     out    right_cruise_bem.v_exp
+ <=c=(id:3644)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.v
+
+(id:2956)             source     out    right_cruise_bem.u_exp
+ <=c=(id:3642)        connection dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.u
+
+(id:3369)             source     out    right_cruise_bem.right_cruise_bem.thrust_origin
+ <---(id:3638)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.thrust_origin
+
+(id:3376)             source     out    right_cruise_bem.right_cruise_bem.thrust_vector
+ <---(id:3665)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.thrust_vector
+
+(id:3470)             source     out    right_cruise_bem.right_cruise_bem.Re
+ <---(id:4086)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group.Re
+
+(id:3374)             source     out    right_cruise_bem.right_cruise_bem.twist_profile
+ <---(id:3976)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.twist_profile
+
+(id:3372)             source     out    right_cruise_bem.right_cruise_bem.chord_profile
+ <---(id:3977)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.chord_profile
+
+(id:3367)             source     out    right_cruise_bem.right_cruise_bem.propeller_radius
+ <---(id:3637)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.propeller_radius
+ <---(id:3969)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.propeller_radius
+
+(id:4020)             source     out    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._tangential_inflow_velocity
+ <---(id:3457)        promotion  dec    right_cruise_bem.right_cruise_bem._tangential_inflow_velocity
+ <---(id:4080)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._tangential_inflow_velocity
+ <---(id:4117)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._tangential_inflow_velocity
+
+(id:4004)             source     out    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._radius
+ <---(id:4081)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._radius
+ <---(id:4091)        promotion  dec    right_cruise_bem.right_cruise_bem.prandtl_loss_factor_model._radius
+ <---(id:4123)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._radius
+
+(id:4001)             source     out    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._angular_speed
+ <---(id:4118)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._angular_speed
+
+(id:4009)             source     out    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._axial_inflow_velocity
+ <---(id:4079)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._axial_inflow_velocity
+ <---(id:3456)        promotion  dec    right_cruise_bem.right_cruise_bem._axial_inflow_velocity
+ <---(id:4116)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._axial_inflow_velocity
+
+(id:4008)             source     out    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._blade_solidity
+ <---(id:4121)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._blade_solidity
+ <---(id:4078)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._blade_solidity
+
+(id:4090)             source     out    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group.Cd
+ <---(id:4131)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model.Cd
+
+(id:4087)             source     out    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group.phi_distribution
+ <---(id:4114)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model.phi_distribution
+ <---(id:4094)        promotion  dec    right_cruise_bem.right_cruise_bem.prandtl_loss_factor_model.phi_distribution
+ <---(id:3622)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_distribution
+
+(id:4089)             source     out    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group.Cl
+ <---(id:4130)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model.Cl
+
+(id:3664)             source     out    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.rotational_speed
+ <---(id:3971)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.rotational_speed
+
+(id:3663)             source     out    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.dr
+ <---(id:3970)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.dr
+
+(id:3660)             source     out    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.hub_radius
+ <---(id:3968)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.hub_radius
+
+(id:3659)             source     out    right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.inflow_velocity
+ <---(id:3975)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.inflow_velocity
+
+(id:3965)             source     in     right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.x_dir
+ <---(id:3972)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.x_dir
+
+(id:3966)             source     in     right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.y_dir
+ <---(id:3973)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.y_dir
+
+(id:3967)             source     in     right_cruise_bem.right_cruise_bem.BEM_external_inputs_model.z_dir
+ <---(id:3974)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model.z_dir
+
+(id:4328)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model.FOM_compute
+ <---(id:3617)        promotion  dec    right_cruise_bem.right_cruise_bem.FOM_compute
+
+(id:4302)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model.C_T_compute
+ <---(id:3613)        promotion  dec    right_cruise_bem.right_cruise_bem.C_T_compute
+
+(id:4324)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model.eta_compute
+ <---(id:3616)        promotion  dec    right_cruise_bem.right_cruise_bem.eta_compute
+
+(id:4315)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model.C_Q_compute
+ <---(id:3614)        promotion  dec    right_cruise_bem.right_cruise_bem.C_Q_compute
+
+(id:4263)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model.T_compute
+ <---(id:3615)        promotion  dec    right_cruise_bem.right_cruise_bem.T_compute
+
+(id:4158)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model._ux_compute
+ <---(id:3621)        promotion  dec    right_cruise_bem.right_cruise_bem._ux_compute
+
+(id:4331)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model._dQ_compute
+ <---(id:3619)        promotion  dec    right_cruise_bem.right_cruise_bem._dQ_compute
+
+(id:4235)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model._dD_compute
+ <---(id:3620)        promotion  dec    right_cruise_bem.right_cruise_bem._dD_compute
+
+(id:4330)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model.Q_compute
+ <---(id:3608)        promotion  dec    right_cruise_bem.right_cruise_bem.Q_compute
+
+(id:4329)             source     out    right_cruise_bem.right_cruise_bem.induced_velocity_model._dT_compute
+ <---(id:3618)        promotion  dec    right_cruise_bem.right_cruise_bem._dT_compute
+
+(id:3988)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._chord
+ <---(id:4122)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._chord
+ <---(id:4084)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._chord
+ <---(id:3455)        promotion  dec    right_cruise_bem.right_cruise_bem._chord
+ <---(id:3992)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._chord
+
+(id:3987)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._pitch
+ <---(id:4085)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._pitch
+
+(id:3986)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._inflow_velocity
+ <---(id:3997)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._inflow_velocity
+
+(id:3985)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._z_dir
+ <---(id:4000)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._z_dir
+
+(id:3984)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._y_dir
+ <---(id:3999)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._y_dir
+
+(id:3983)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._x_dir
+ <---(id:3998)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._x_dir
+
+(id:3982)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._rotational_speed
+ <---(id:3991)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._rotational_speed
+
+(id:3981)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._dr
+ <---(id:4125)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._dr
+
+(id:3980)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._rotor_radius
+ <---(id:3994)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._rotor_radius
+ <---(id:4124)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model._rotor_radius
+ <---(id:4092)        promotion  dec    right_cruise_bem.right_cruise_bem.prandtl_loss_factor_model._rotor_radius
+ <---(id:4082)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._rotor_radius
+
+(id:3979)             source     out    right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._hub_radius
+ <---(id:4083)        promotion  dec    right_cruise_bem.right_cruise_bem.phi_bracketed_search_group._hub_radius
+ <---(id:3993)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._hub_radius
+ <---(id:4093)        promotion  dec    right_cruise_bem.right_cruise_bem.prandtl_loss_factor_model._hub_radius
+
+(id:3989)             source     in     right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._theta
+ <---(id:3995)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._theta
+
+(id:3990)             source     in     right_cruise_bem.right_cruise_bem.BEM_core_inputs_model._normalized_radius
+ <---(id:3996)        promotion  dec    right_cruise_bem.right_cruise_bem.BEM_pre_process_model._normalized_radius
+
+(id:4113)             source     out    right_cruise_bem.right_cruise_bem.prandtl_loss_factor_model.prandtl_loss_factor
+ <---(id:4129)        promotion  dec    right_cruise_bem.right_cruise_bem.induced_velocity_model.prandtl_loss_factor
+
+(id:486)              source     out    24_reshape_operation_vGMz6.28
+ <=c=(id:477)         connection dec    28_matvec_operation_tLoAL.x
+
+(id:458)              source     out    darpa4_coefficients_matvec_operation_4NwqH.203
+ <=c=(id:451)         connection dec    203_minus_207_operation_rdF4R.x1
+
+(id:435)              source     out    norm_operation_219_rFhAC.220
+ <=c=(id:2981)        connection dec    right_cruise_bem.R
+
+(id:374)              source     out    82_matvec_operation_kDFjh.84
+ <=c=(id:363)         connection dec    83_plus_84_BVjmr_operation.x2
+
+(id:488)              source     out    27_reshape_operation_n9XjO.29
+ <=c=(id:479)         connection dec    29_matvec_operation_Xm0E8.x
+
+(id:359)              source     out    88_times_scaler_operation_rMbcq.89
+ <=c=(id:352)         connection dec    norm_operation_89_ieSot.x
+
+(id:468)              source     out    66_reshape_operation_AmEOa.67
+ <=c=(id:16487)       connection dec    cruise_vlm_model.cruise_tail_mesh
+
+(id:490)              source     out    58_reshape_operation_NQpTx.62
+ <=c=(id:481)         connection dec    62_matvec_operation_THWDC.x
+
+(id:376)              source     out    74_reshape_operation_SDuby.75
+ <=c=(id:365)         connection dec    75_minus_80_operation_ESa7X.x1
+ <=c=(id:383)         connection dec    75_reshape_operation_xoVMI.x
+
+(id:460)              source     out    darpa4_coefficients_matvec_operation_aMXcn.207
+ <=c=(id:452)         connection dec    203_minus_207_operation_rdF4R.x2
+
+(id:351)              source     out    86_reshape_operation_BIzFn.87
+ <=c=(id:523)         connection dec    wing_beam_mass_model.wing_beam_mesh
+
+(id:492)              source     out    61_reshape_operation_k1Dql.63
+ <=c=(id:483)         connection dec    63_matvec_operation_ANrBi.x
+
+(id:462)              source     out    darpa4_coefficients_matvec_operation_8h2Fr.212
+ <=c=(id:454)         connection dec    212_minus_216_operation_hdg9T.x1
+
+(id:378)              source     out    79_reshape_operation_uSISz.80
+ <=c=(id:385)         connection dec    80_reshape_operation_sPDzV.x
+ <=c=(id:366)         connection dec    75_minus_80_operation_ESa7X.x2
+
+(id:494)              source     out    23_reshape_operation_3NNwN.24
+ <=c=(id:485)         connection dec    24_reshape_operation_vGMz6.x
+
+(id:380)              source     out    96_reshape_operation_0M994.97
+ <=c=(id:368)         connection dec    97_minus_100_operation_obloy.x1
+
+(id:464)              source     out    darpa4_coefficients_matvec_operation_fgc5D.216
+ <=c=(id:455)         connection dec    212_minus_216_operation_hdg9T.x2
+
+(id:405)              source     out    193_division_194_ZSdyc_operation.195
+ <=c=(id:1606)        connection dec    left_cruise_bem.tv
+
+(id:496)              source     out    26_reshape_operation_4jNfo.27
+ <=c=(id:487)         connection dec    27_reshape_operation_n9XjO.x
+
+(id:382)              source     out    99_reshape_operation_FDVMn.100
+ <=c=(id:369)         connection dec    97_minus_100_operation_obloy.x2
+
+(id:18446)            source     out    cruise_vlm_model.cruise_tail_mesh_rot_ref_exp
+ <=c=(id:18688)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.cruise_tail_mesh_rot_ref
+
+(id:18443)            source     out    cruise_vlm_model.cruise_wing_mesh_rot_ref_exp
+ <=c=(id:18672)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.cruise_wing_mesh_rot_ref
+
+(id:18440)            source     out    cruise_vlm_model.evaluation_pt_exp
+ <=c=(id:20280)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.evaluation_pt
+
+(id:18437)            source     out    cruise_vlm_model.density_exp
+ <=c=(id:20073)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.density
+     <---(id:18579)   promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.density
+
+(id:18413)            source     out    cruise_vlm_model.cruise_tail_mesh_exp
+ <=c=(id:18566)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_tail_mesh
+     <---(id:18716)   promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.ComputeNormal.cruise_tail_mesh
+
+(id:16431)            source     out    cruise_vlm_model.cruise_wing_mesh_exp
+ <=c=(id:18553)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_wing_mesh
+     <---(id:18703)   promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.ComputeNormal.cruise_wing_mesh
+
+(id:4350)             source     out    cruise_vlm_model.psi_exp
+ <=c=(id:18604)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.psi
+
+(id:4348)             source     out    cruise_vlm_model.theta_exp
+ <=c=(id:18603)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.theta
+
+(id:4346)             source     out    cruise_vlm_model.phi_exp
+ <=c=(id:18601)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.phi
+
+(id:4344)             source     out    cruise_vlm_model.r_exp
+ <=c=(id:18669)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.r
+
+(id:4342)             source     out    cruise_vlm_model.q_exp
+ <=c=(id:18668)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.q
+
+(id:4340)             source     out    cruise_vlm_model.p_exp
+ <=c=(id:18667)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.p
+
+(id:4338)             source     out    cruise_vlm_model.w_exp
+ <=c=(id:18597)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.w
+
+(id:4336)             source     out    cruise_vlm_model.v_exp
+ <=c=(id:18596)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.v
+
+(id:4334)             source     out    cruise_vlm_model.u_exp
+ <=c=(id:18595)       connection dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.u
+
+(id:18647)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.WakeCoords_comp.cruise_tail_mesh_wake_coords
+ <---(id:19055)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.cruise_tail_mesh_wake_coords
+ <---(id:19630)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_tail_mesh_wake_coords
+
+(id:18638)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.WakeCoords_comp.cruise_wing_mesh_wake_coords
+ <---(id:18954)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.cruise_wing_mesh_wake_coords
+ <---(id:19623)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_wing_mesh_wake_coords
+
+(id:19590)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.seperate_gamma_b_comp.cruise_tail_mesh_gamma_b
+ <---(id:19631)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_tail_mesh_gamma_b
+
+(id:19589)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.seperate_gamma_b_comp.cruise_wing_mesh_gamma_b
+ <---(id:19624)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_wing_mesh_gamma_b
+
+(id:18578)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_tail_mesh_eval_pts_coords
+ <---(id:19959)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics1.cruise_tail_mesh_eval_pts_coords
+ <---(id:20099)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.cruise_tail_mesh_eval_pts_coords
+
+(id:18565)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_wing_mesh_eval_pts_coords
+ <---(id:20094)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.cruise_wing_mesh_eval_pts_coords
+ <---(id:19741)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics0.cruise_wing_mesh_eval_pts_coords
+
+(id:18534)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.bd_vec
+ <---(id:20086)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.bd_vec
+
+(id:18533)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_tail_mesh_s_panel
+ <---(id:20431)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.cruise_tail_mesh_s_panel
+
+(id:18515)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_tail_mesh_coll_pts_coords
+ <---(id:18687)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.cruise_tail_mesh_coll_pts_coords
+ <---(id:19479)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.cruise_tail_mesh_coll_pts_coords
+ <---(id:19054)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.cruise_tail_mesh_coll_pts_coords
+
+(id:18496)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_tail_mesh_bd_vtx_coords
+ <---(id:18639)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.WakeCoords_comp.cruise_tail_mesh_bd_vtx_coords
+ <---(id:19629)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_tail_mesh_bd_vtx_coords
+ <---(id:19480)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.cruise_tail_mesh_bd_vtx_coords
+
+(id:18491)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_wing_mesh_s_panel
+ <---(id:20352)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.cruise_wing_mesh_s_panel
+
+(id:18473)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_wing_mesh_coll_pts_coords
+ <---(id:19277)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.cruise_wing_mesh_coll_pts_coords
+ <---(id:18671)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.cruise_wing_mesh_coll_pts_coords
+ <---(id:18852)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.cruise_wing_mesh_coll_pts_coords
+
+(id:18454)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.cruise_wing_mesh_bd_vtx_coords
+ <---(id:19622)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_wing_mesh_bd_vtx_coords
+ <---(id:18630)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.WakeCoords_comp.cruise_wing_mesh_bd_vtx_coords
+ <---(id:19379)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.cruise_wing_mesh_bd_vtx_coords
+
+(id:18659)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.gamma_b
+ <---(id:19588)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.seperate_gamma_b_comp.gamma_b
+ <---(id:19592)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.compute_horseshoe_circulation.gamma_b
+
+(id:18665)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.MTX
+ <---(id:18657)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.MTX
+
+(id:18729)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_k_vel.b
+ <---(id:18658)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.b
+
+(id:19167)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd
+ <---(id:19584)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic_bd.aic_bd
+
+(id:19579)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.aic_bd11
+ <---(id:19174)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd11
+
+(id:19478)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.aic_bd10
+ <---(id:19172)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd10
+
+(id:19377)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.aic_bd01
+ <---(id:19170)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd01
+
+(id:19276)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd_w_seperate.aic_bd00
+ <---(id:19168)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic_bd.aic_bd00
+
+(id:18702)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.cruise_tail_mesh_kinematic_vel
+ <---(id:18734)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_k_vel.cruise_tail_mesh_kinematic_vel
+ <---(id:19617)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_total_vel.cruise_tail_mesh_kinematic_vel
+
+(id:18686)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.cruise_wing_mesh_kinematic_vel
+ <---(id:18730)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_k_vel.cruise_wing_mesh_kinematic_vel
+ <---(id:19611)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_total_vel.cruise_wing_mesh_kinematic_vel
+
+(id:18742)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_M
+ <---(id:19159)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic.aic_M
+
+(id:19154)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.aic_M11
+ <---(id:18749)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_M11
+
+(id:19053)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.aic_M10
+ <---(id:18747)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_M10
+
+(id:18952)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.aic_M01
+ <---(id:18745)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_M01
+
+(id:18851)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_bd_w_seperate.aic_M00
+ <---(id:18743)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.AssembleAic.aic_M00
+
+(id:19587)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic_bd.aic_bd_proj
+ <---(id:18663)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.aic_bd_proj
+
+(id:19162)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic.M_mat
+ <---(id:18661)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.M_mat
+
+(id:18728)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.ComputeNormal.cruise_tail_mesh_bd_vtx_normals
+ <---(id:19585)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic_bd.cruise_tail_mesh_bd_vtx_normals
+ <---(id:18735)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_k_vel.cruise_tail_mesh_bd_vtx_normals
+ <---(id:19160)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic.cruise_tail_mesh_bd_vtx_normals
+
+(id:18715)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.ComputeNormal.cruise_wing_mesh_bd_vtx_normals
+ <---(id:19157)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic.cruise_wing_mesh_bd_vtx_normals
+ <---(id:19582)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_aic_bd.cruise_wing_mesh_bd_vtx_normals
+ <---(id:18731)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.Projection_k_vel.cruise_wing_mesh_bd_vtx_normals
+
+(id:18624)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.frame_vel
+ <---(id:20072)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.frame_vel
+ <---(id:18666)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.solve_gamma_b_group.prepossing_before_Solve.RHS_group.KinematicVelocityComp.frame_vel
+ <---(id:18629)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.WakeCoords_comp.frame_vel
+
+(id:18621)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.beta
+ <---(id:20077)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.beta
+
+(id:18619)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.alpha
+ <---(id:20076)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.alpha
+
+(id:18610)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.adapter_comp.v_inf_sq
+ <---(id:18580)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_system.MeshPreprocessing_comp.v_inf_sq
+
+(id:19593)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.compute_horseshoe_circulation.horseshoe_circulation
+ <---(id:20087)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.horseshoe_circulation
+
+(id:19609)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.cruise_tail_mesh_eval_pts_coords_eval_pts_induced_vel
+ <---(id:19616)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_total_vel.cruise_tail_mesh_eval_pts_coords_eval_pts_induced_vel
+
+(id:19601)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.cruise_wing_mesh_eval_pts_coords_eval_pts_induced_vel
+ <---(id:19610)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_total_vel.cruise_wing_mesh_eval_pts_coords_eval_pts_induced_vel
+
+(id:19621)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_total_vel.cruise_tail_mesh_eval_pts_coords_eval_total_vel
+ <---(id:20224)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.cruise_tail_mesh_eval_pts_coords_eval_total_vel
+
+(id:19615)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_total_vel.cruise_wing_mesh_eval_pts_coords_eval_total_vel
+ <---(id:20206)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.LiftDrag.cruise_wing_mesh_eval_pts_coords_eval_total_vel
+
+(id:19635)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_tail_mesh_bdnwake_gamma
+ <---(id:20069)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel1.cruise_tail_mesh_bdnwake_gamma
+ <---(id:19851)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel0.cruise_tail_mesh_bdnwake_gamma
+
+(id:19633)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_tail_mesh_bdnwake_coords
+ <---(id:19960)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics1.cruise_tail_mesh_bdnwake_coords
+ <---(id:19742)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics0.cruise_tail_mesh_bdnwake_coords
+
+(id:19628)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_wing_mesh_bdnwake_gamma
+ <---(id:20065)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel1.cruise_wing_mesh_bdnwake_gamma
+ <---(id:19847)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel0.cruise_wing_mesh_bdnwake_gamma
+
+(id:19626)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.BdnWakeCombine.cruise_wing_mesh_bdnwake_coords
+ <---(id:19637)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics0.cruise_wing_mesh_bdnwake_coords
+ <---(id:19855)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics1.cruise_wing_mesh_bdnwake_coords
+
+(id:20071)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel1.cruise_tail_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_induced_vel
+ <---(id:19607)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.cruise_tail_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_induced_vel
+
+(id:20067)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel1.cruise_tail_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_induced_vel
+ <---(id:19605)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.cruise_tail_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_induced_vel
+
+(id:19853)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel0.cruise_wing_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_induced_vel
+ <---(id:19599)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.cruise_wing_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_induced_vel
+
+(id:19849)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel0.cruise_wing_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_induced_vel
+ <---(id:19597)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.cruise_wing_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_induced_vel
+
+(id:19845)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics0.cruise_wing_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_out
+ <---(id:19850)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel0.cruise_wing_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_out
+
+(id:19740)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics0.cruise_wing_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_out
+ <---(id:19846)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel0.cruise_wing_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_out
+
+(id:20063)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics1.cruise_tail_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_out
+ <---(id:20068)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel1.cruise_tail_mesh_eval_pts_coordscruise_tail_mesh_bdnwake_coords_out
+
+(id:19958)            source     out    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_aics1.cruise_tail_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_out
+ <---(id:20064)       promotion  dec    cruise_vlm_model.cruise_vlm_model.VLMSolverModel.VLM_outputs.EvalPtsVel.eval_pts_ind_vel1.cruise_tail_mesh_eval_pts_coordscruise_wing_mesh_bdnwake_coords_out
+
+(id:407)              source     out    darpa4_coefficients_matvec_operation_1cN1G.168
+ <=c=(id:1609)        connection dec    left_cruise_bem.to
+
+(id:498)              source     out    57_reshape_operation_ArJR9.58
+ <=c=(id:489)         connection dec    58_reshape_operation_NQpTx.x
+
+(id:384)              source     out    75_reshape_operation_xoVMI.81
+ <=c=(id:371)         connection dec    81_matvec_operation_Nkcmg.x
+
+(id:466)              source     out    32_reshape_operation_gGuVs.33
+ <=c=(id:4413)        connection dec    cruise_vlm_model.cruise_wing_mesh
+
+(id:411)              source     out    177_division_x2_Jp0Nd_operation.188
+ <=c=(id:400)         connection dec    norm_operation_188_dtFi3.x
+
+(id:401)              source     out    norm_operation_188_dtFi3.189
+ <=c=(id:1604)        connection dec    left_cruise_bem.R
+
+(id:386)              source     out    80_reshape_operation_sPDzV.82
+ <=c=(id:373)         connection dec    82_matvec_operation_kDFjh.x
+
+(id:500)              source     out    60_reshape_operation_yRRco.61
+ <=c=(id:491)         connection dec    61_reshape_operation_k1Dql.x
+
+(id:1626)             source     out    left_cruise_bem.in_plane_2_exp
+ <=c=(id:2259)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.in_plane_2
+
+(id:1623)             source     out    left_cruise_bem.in_plane_1_exp
+ <=c=(id:2258)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.in_plane_1
+
+(id:1620)             source     out    left_cruise_bem.twist_cp_exp
+ <=c=(id:1996)        connection dec    left_cruise_bem.left_cruise_bem.twist_cp
+
+(id:1618)             source     out    left_cruise_bem.chord_cp_exp
+ <=c=(id:1993)        connection dec    left_cruise_bem.left_cruise_bem.chord_cp
+
+(id:1616)             source     out    left_cruise_bem.reference_point_exp
+ <=c=(id:2099)        connection dec    left_cruise_bem.left_cruise_bem.reference_point
+
+(id:1614)             source     out    left_cruise_bem.eval_point_exp
+ <=c=(id:2262)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.eval_point
+
+(id:1611)             source     out    left_cruise_bem.to_exp
+ <=c=(id:1991)        connection dec    left_cruise_bem.left_cruise_bem.to
+
+(id:1608)             source     out    left_cruise_bem.tv_exp
+ <=c=(id:1998)        connection dec    left_cruise_bem.left_cruise_bem.tv
+
+(id:1605)             source     out    left_cruise_bem.R_exp
+ <=c=(id:1989)        connection dec    left_cruise_bem.left_cruise_bem.R
+
+(id:1603)             source     out    left_cruise_bem.speed_of_sound_exp
+ <=c=(id:2089)        connection dec    left_cruise_bem.left_cruise_bem.speed_of_sound
+
+(id:1601)             source     out    left_cruise_bem.dynamic_viscosity_exp
+ <=c=(id:2087)        connection dec    left_cruise_bem.left_cruise_bem.dynamic_viscosity
+
+(id:1599)             source     out    left_cruise_bem.density_exp
+ <=c=(id:2085)        connection dec    left_cruise_bem.left_cruise_bem.density
+     <---(id:2751)    promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model.density
+
+(id:1597)             source     out    left_cruise_bem.rpm_exp
+ <=c=(id:2264)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.rpm
+
+(id:1595)             source     out    left_cruise_bem.psi_exp
+ <=c=(id:1636)        connection dec    left_cruise_bem.left_cruise_bem.psi
+
+(id:1593)             source     out    left_cruise_bem.phi_exp
+ <=c=(id:1634)        connection dec    left_cruise_bem.left_cruise_bem.phi
+
+(id:1591)             source     out    left_cruise_bem.theta_exp
+ <=c=(id:1635)        connection dec    left_cruise_bem.left_cruise_bem.theta
+
+(id:1589)             source     out    left_cruise_bem.r_exp
+ <=c=(id:2272)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.r
+
+(id:1587)             source     out    left_cruise_bem.q_exp
+ <=c=(id:2271)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.q
+
+(id:1585)             source     out    left_cruise_bem.p_exp
+ <=c=(id:2270)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.p
+
+(id:1583)             source     out    left_cruise_bem.w_exp
+ <=c=(id:2268)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.w
+
+(id:1581)             source     out    left_cruise_bem.v_exp
+ <=c=(id:2267)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.v
+
+(id:1579)             source     out    left_cruise_bem.u_exp
+ <=c=(id:2265)        connection dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.u
+
+(id:1992)             source     out    left_cruise_bem.left_cruise_bem.thrust_origin
+ <---(id:2261)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.thrust_origin
+
+(id:1999)             source     out    left_cruise_bem.left_cruise_bem.thrust_vector
+ <---(id:2288)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.thrust_vector
+
+(id:2093)             source     out    left_cruise_bem.left_cruise_bem.Re
+ <---(id:2709)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group.Re
+
+(id:1997)             source     out    left_cruise_bem.left_cruise_bem.twist_profile
+ <---(id:2599)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.twist_profile
+
+(id:1995)             source     out    left_cruise_bem.left_cruise_bem.chord_profile
+ <---(id:2600)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.chord_profile
+
+(id:1990)             source     out    left_cruise_bem.left_cruise_bem.propeller_radius
+ <---(id:2592)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.propeller_radius
+ <---(id:2260)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.propeller_radius
+
+(id:2951)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model.FOM_compute
+ <---(id:2240)        promotion  dec    left_cruise_bem.left_cruise_bem.FOM_compute
+
+(id:2925)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model.C_T_compute
+ <---(id:2236)        promotion  dec    left_cruise_bem.left_cruise_bem.C_T_compute
+
+(id:2947)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model.eta_compute
+ <---(id:2239)        promotion  dec    left_cruise_bem.left_cruise_bem.eta_compute
+
+(id:2938)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model.C_Q_compute
+ <---(id:2237)        promotion  dec    left_cruise_bem.left_cruise_bem.C_Q_compute
+
+(id:2886)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model.T_compute
+ <---(id:2238)        promotion  dec    left_cruise_bem.left_cruise_bem.T_compute
+
+(id:2781)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model._ux_compute
+ <---(id:2244)        promotion  dec    left_cruise_bem.left_cruise_bem._ux_compute
+
+(id:2954)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model._dQ_compute
+ <---(id:2242)        promotion  dec    left_cruise_bem.left_cruise_bem._dQ_compute
+
+(id:2858)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model._dD_compute
+ <---(id:2243)        promotion  dec    left_cruise_bem.left_cruise_bem._dD_compute
+
+(id:2953)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model.Q_compute
+ <---(id:2231)        promotion  dec    left_cruise_bem.left_cruise_bem.Q_compute
+
+(id:2952)             source     out    left_cruise_bem.left_cruise_bem.induced_velocity_model._dT_compute
+ <---(id:2241)        promotion  dec    left_cruise_bem.left_cruise_bem._dT_compute
+
+(id:2736)             source     out    left_cruise_bem.left_cruise_bem.prandtl_loss_factor_model.prandtl_loss_factor
+ <---(id:2752)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model.prandtl_loss_factor
+
+(id:2643)             source     out    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._tangential_inflow_velocity
+ <---(id:2703)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._tangential_inflow_velocity
+ <---(id:2080)        promotion  dec    left_cruise_bem.left_cruise_bem._tangential_inflow_velocity
+ <---(id:2740)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._tangential_inflow_velocity
+
+(id:2627)             source     out    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._radius
+ <---(id:2746)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._radius
+ <---(id:2704)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._radius
+ <---(id:2714)        promotion  dec    left_cruise_bem.left_cruise_bem.prandtl_loss_factor_model._radius
+
+(id:2624)             source     out    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._angular_speed
+ <---(id:2741)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._angular_speed
+
+(id:2632)             source     out    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._axial_inflow_velocity
+ <---(id:2702)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._axial_inflow_velocity
+ <---(id:2739)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._axial_inflow_velocity
+ <---(id:2079)        promotion  dec    left_cruise_bem.left_cruise_bem._axial_inflow_velocity
+
+(id:2631)             source     out    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._blade_solidity
+ <---(id:2701)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._blade_solidity
+ <---(id:2744)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._blade_solidity
+
+(id:2287)             source     out    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.rotational_speed
+ <---(id:2594)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.rotational_speed
+
+(id:2286)             source     out    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.dr
+ <---(id:2593)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.dr
+
+(id:2283)             source     out    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.hub_radius
+ <---(id:2591)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.hub_radius
+
+(id:2282)             source     out    left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.inflow_velocity
+ <---(id:2598)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.inflow_velocity
+
+(id:2588)             source     in     left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.x_dir
+ <---(id:2595)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.x_dir
+
+(id:2589)             source     in     left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.y_dir
+ <---(id:2596)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.y_dir
+
+(id:2590)             source     in     left_cruise_bem.left_cruise_bem.BEM_external_inputs_model.z_dir
+ <---(id:2597)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model.z_dir
+
+(id:2713)             source     out    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group.Cd
+ <---(id:2754)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model.Cd
+
+(id:2710)             source     out    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group.phi_distribution
+ <---(id:2245)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_distribution
+ <---(id:2737)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model.phi_distribution
+ <---(id:2717)        promotion  dec    left_cruise_bem.left_cruise_bem.prandtl_loss_factor_model.phi_distribution
+
+(id:2712)             source     out    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group.Cl
+ <---(id:2753)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model.Cl
+
+(id:2611)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._chord
+ <---(id:2707)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._chord
+ <---(id:2078)        promotion  dec    left_cruise_bem.left_cruise_bem._chord
+ <---(id:2745)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._chord
+ <---(id:2615)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._chord
+
+(id:2610)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._pitch
+ <---(id:2708)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._pitch
+
+(id:2609)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._inflow_velocity
+ <---(id:2620)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._inflow_velocity
+
+(id:2608)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._z_dir
+ <---(id:2623)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._z_dir
+
+(id:2607)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._y_dir
+ <---(id:2622)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._y_dir
+
+(id:2606)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._x_dir
+ <---(id:2621)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._x_dir
+
+(id:2605)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._rotational_speed
+ <---(id:2614)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._rotational_speed
+
+(id:2604)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._dr
+ <---(id:2748)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._dr
+
+(id:2603)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._rotor_radius
+ <---(id:2617)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._rotor_radius
+ <---(id:2715)        promotion  dec    left_cruise_bem.left_cruise_bem.prandtl_loss_factor_model._rotor_radius
+ <---(id:2747)        promotion  dec    left_cruise_bem.left_cruise_bem.induced_velocity_model._rotor_radius
+ <---(id:2705)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._rotor_radius
+
+(id:2602)             source     out    left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._hub_radius
+ <---(id:2716)        promotion  dec    left_cruise_bem.left_cruise_bem.prandtl_loss_factor_model._hub_radius
+ <---(id:2616)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._hub_radius
+ <---(id:2706)        promotion  dec    left_cruise_bem.left_cruise_bem.phi_bracketed_search_group._hub_radius
+
+(id:2612)             source     in     left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._theta
+ <---(id:2618)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._theta
+
+(id:2613)             source     in     left_cruise_bem.left_cruise_bem.BEM_core_inputs_model._normalized_radius
+ <---(id:2619)        promotion  dec    left_cruise_bem.left_cruise_bem.BEM_pre_process_model._normalized_radius
+
+(id:415)              source     out    186_cross_177_mXm5Y_operation.193
+ <=c=(id:416)         connection dec    norm_operation_193_pEte6.x
+ <=c=(id:402)         connection dec    193_division_194_ZSdyc_operation.x1
+
+(id:502)              source     out    darpa4_coefficients_matvec_operation_yti5l.23
+ <=c=(id:493)         connection dec    23_reshape_operation_3NNwN.x
+
+(id:388)              source     out    darpa4_coefficients_matvec_operation_8F1cW.74
+ <=c=(id:375)         connection dec    74_reshape_operation_SDuby.x
+
+(id:504)              source     out    darpa4_coefficients_matvec_operation_DkWw9.26
+ <=c=(id:495)         connection dec    26_reshape_operation_4jNfo.x
+
+(id:391)              source     out    darpa4_coefficients_matvec_operation_1ksry.79
+ <=c=(id:377)         connection dec    79_reshape_operation_uSISz.x
+
+(id:417)              source     out    norm_operation_193_pEte6.194
+ <=c=(id:403)         connection dec    193_division_194_ZSdyc_operation.x2
+
+(id:439)              source     out    224_division_225_sGhgy_operation.226
+ <=c=(id:2983)        connection dec    right_cruise_bem.tv
+
+(id:355)              source     out    norm_operation_102_IOtSU.103
+ <=c=(id:526)         connection dec    wing_beam_mass_model.wing_beam_height
+
+(id:470)              source     out    darpa4_coefficients_matvec_operation_4a6jQ.304
+ <=c=(id:18438)       connection dec    cruise_vlm_model.evaluation_pt
+ <=c=(id:18441)       connection dec    cruise_vlm_model.cruise_wing_mesh_rot_ref
+ <=c=(id:18444)       connection dec    cruise_vlm_model.cruise_tail_mesh_rot_ref
+
+(id:506)              source     out    darpa4_coefficients_matvec_operation_XPQCD.57
+ <=c=(id:497)         connection dec    57_reshape_operation_ArJR9.x
+
+(id:393)              source     out    darpa4_coefficients_matvec_operation_agnsb.96
+ <=c=(id:379)         connection dec    96_reshape_operation_0M994.x
+
+(id:441)              source     out    darpa4_coefficients_matvec_operation_nD9fL.199
+ <=c=(id:2986)        connection dec    right_cruise_bem.to
+
+(id:357)              source     out    85_reshape_operation_4mUSO.86
+ <=c=(id:350)         connection dec    86_reshape_operation_BIzFn.x
+
+(id:420)              source     out    172_minus_176_operation_R1Qyx.177
+ <=c=(id:414)         connection dec    186_cross_177_mXm5Y_operation.x2
+ <=c=(id:408)         connection dec    177_division_x2_Jp0Nd_operation.x1
+
+(id:473)              source     out    30_plus_31_ePElE_operation.32
+ <=c=(id:465)         connection dec    32_reshape_operation_gGuVs.x
+
+(id:508)              source     out    darpa4_coefficients_matvec_operation_lOVr7.60
+ <=c=(id:499)         connection dec    60_reshape_operation_yRRco.x
+
+(id:395)              source     out    darpa4_coefficients_matvec_operation_sxMU8.99
+ <=c=(id:381)         connection dec    99_reshape_operation_FDVMn.x
+
+(id:445)              source     out    208_division_x2_5DDNl_operation.219
+ <=c=(id:434)         connection dec    norm_operation_219_rFhAC.x
+
