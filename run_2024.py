@@ -328,22 +328,22 @@ if cruise:
     )
     system_model.register_output(vlm_outputs)
 
-    # VAST nodal forces
-    vlm_force_mapping_model = VASTNodalForces(
-        name='vast_cruise_nodal_forces',
-        surface_names=[
-            f'cruise_wing_mesh',
-            f'cruise_tail_mesh',
-        ],
-        surface_shapes=[
-            (1, ) + wing_meshes.vlm_mesh.shape[1:],
-            (1, ) + tail_meshes.vlm_mesh.shape[1:],
-        ],
-        initial_meshes=[
-            wing_meshes.vlm_mesh,
-            tail_meshes.vlm_mesh
-        ]
-    )
+    # # VAST nodal forces
+    # vlm_force_mapping_model = VASTNodalForces(
+    #     name='vast_cruise_nodal_forces',
+    #     surface_names=[
+    #         f'cruise_wing_mesh',
+    #         f'cruise_tail_mesh',
+    #     ],
+    #     surface_shapes=[
+    #         (1, ) + wing_meshes.vlm_mesh.shape[1:],
+    #         (1, ) + tail_meshes.vlm_mesh.shape[1:],
+    #     ],
+    #     initial_meshes=[
+    #         wing_meshes.vlm_mesh,
+    #         tail_meshes.vlm_mesh
+    #     ]
+    # )
 
 
     # oml_forces = vlm_force_mapping_model.evaluate(vlm_forces=vlm_outputs.panel_forces, nodal_force_meshes=[wing_meshes.oml_mesh, tail_meshes.oml_mesh])
@@ -397,6 +397,5 @@ if cruise:
 
 
 caddee_csdl_model = system_model.assemble_csdl()
-print('sldkjfnsdl')
 sim = python_csdl_backend.Simulator(caddee_csdl_model, analytics=True)
 sim.run()
